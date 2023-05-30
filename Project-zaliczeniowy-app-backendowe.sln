@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathcesApi", "MathcesApi.csproj", "{38A065EB-E868-4A3B-B170-01CFEC3B3A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathcesApi", "MathcesApi\MathcesApi.csproj", "{4157D175-5BAC-44C9-9578-0944B965CBF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerPricesApi", "..\PlayerPricesApi\PlayerPricesApi.csproj", "{8DF6A91B-4403-4375-9991-3E36BAD79D7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerPricesApi", "PlayerPricesApi\PlayerPricesApi.csproj", "{9A7EC1A6-D57C-4EE4-BB5A-2638526307B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatisticsApi", "..\StatisticsApi\StatisticsApi.csproj", "{CABE4A22-CE94-4EA0-B781-7531E027ACEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatisticsApi", "StatisticsApi\StatisticsApi.csproj", "{B2292D1C-E4CC-4F93-95B4-9FDD53BB638B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{38A065EB-E868-4A3B-B170-01CFEC3B3A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38A065EB-E868-4A3B-B170-01CFEC3B3A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38A065EB-E868-4A3B-B170-01CFEC3B3A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38A065EB-E868-4A3B-B170-01CFEC3B3A9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DF6A91B-4403-4375-9991-3E36BAD79D7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DF6A91B-4403-4375-9991-3E36BAD79D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DF6A91B-4403-4375-9991-3E36BAD79D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DF6A91B-4403-4375-9991-3E36BAD79D7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CABE4A22-CE94-4EA0-B781-7531E027ACEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CABE4A22-CE94-4EA0-B781-7531E027ACEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CABE4A22-CE94-4EA0-B781-7531E027ACEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CABE4A22-CE94-4EA0-B781-7531E027ACEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4157D175-5BAC-44C9-9578-0944B965CBF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4157D175-5BAC-44C9-9578-0944B965CBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4157D175-5BAC-44C9-9578-0944B965CBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4157D175-5BAC-44C9-9578-0944B965CBF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7EC1A6-D57C-4EE4-BB5A-2638526307B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7EC1A6-D57C-4EE4-BB5A-2638526307B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7EC1A6-D57C-4EE4-BB5A-2638526307B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7EC1A6-D57C-4EE4-BB5A-2638526307B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2292D1C-E4CC-4F93-95B4-9FDD53BB638B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2292D1C-E4CC-4F93-95B4-9FDD53BB638B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2292D1C-E4CC-4F93-95B4-9FDD53BB638B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2292D1C-E4CC-4F93-95B4-9FDD53BB638B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

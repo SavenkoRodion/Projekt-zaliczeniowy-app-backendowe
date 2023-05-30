@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathcesApi", "MathcesApi.csproj", "{38A065EB-E868-4A3B-B170-01CFEC3B3A9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerPricesApi", "..\PlayerPricesApi\PlayerPricesApi.csproj", "{8DF6A91B-4403-4375-9991-3E36BAD79D7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatisticsApi", "..\StatisticsApi\StatisticsApi.csproj", "{CABE4A22-CE94-4EA0-B781-7531E027ACEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{38A065EB-E868-4A3B-B170-01CFEC3B3A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38A065EB-E868-4A3B-B170-01CFEC3B3A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38A065EB-E868-4A3B-B170-01CFEC3B3A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF6A91B-4403-4375-9991-3E36BAD79D7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF6A91B-4403-4375-9991-3E36BAD79D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF6A91B-4403-4375-9991-3E36BAD79D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF6A91B-4403-4375-9991-3E36BAD79D7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CABE4A22-CE94-4EA0-B781-7531E027ACEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CABE4A22-CE94-4EA0-B781-7531E027ACEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CABE4A22-CE94-4EA0-B781-7531E027ACEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CABE4A22-CE94-4EA0-B781-7531E027ACEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

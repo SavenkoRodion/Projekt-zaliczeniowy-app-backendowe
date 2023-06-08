@@ -13,10 +13,8 @@ namespace MathcesApi
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Match>().HasOne(adv => adv.HomeTeam).WithOne().OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Match>().HasOne(adv => adv.GuestTeam).WithOne().OnDelete(DeleteBehavior.Restrict);
-            /*              (adv => adv.PrimaryContact).WithOne().OnDelete(DeleteBehavior.Restrict);
-                      builder.HasOne(adv => adv.AlternateContact).WithOne().OnDelete(DeleteBehavior.Restrict);*/
+            builder.Entity<Match>().HasOne(adv => adv.HomeTeam).WithMany(x => x.HomeMatches).OnDelete(DeleteBehavior.ClientSetNull);
+            builder.Entity<Match>().HasOne(adv => adv.GuestTeam).WithMany(x => x.GuestMatches).OnDelete(DeleteBehavior.ClientSetNull);
         }
 
         public DbSet<Country> Countries { get; set; }

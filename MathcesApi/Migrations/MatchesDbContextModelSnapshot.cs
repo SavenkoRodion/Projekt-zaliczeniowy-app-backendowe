@@ -47,10 +47,7 @@ namespace MathcesApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LeagueId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -60,8 +57,6 @@ namespace MathcesApi.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("LeagueId");
 
                     b.ToTable("Leagues");
                 });
@@ -74,7 +69,13 @@ namespace MathcesApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("HomeTeamId")
+                    b.Property<int?>("GuestTeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HomeTeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LeagueId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("MatchDate")
@@ -88,7 +89,11 @@ namespace MathcesApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GuestTeamId");
+
                     b.HasIndex("HomeTeamId");
+
+                    b.HasIndex("LeagueId");
 
                     b.HasIndex("StadiumId");
 
@@ -124,10 +129,7 @@ namespace MathcesApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LeagueId")
+                    b.Property<int?>("LeagueId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -135,8 +137,6 @@ namespace MathcesApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
 
                     b.HasIndex("LeagueId");
 
@@ -146,72 +146,70 @@ namespace MathcesApi.Migrations
             modelBuilder.Entity("MathcesApi.DbModel.League", b =>
                 {
                     b.HasOne("MathcesApi.DbModel.Country", "Country")
-                        .WithMany("League")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MathcesApi.DbModel.League", null)
-                        .WithMany("Legue")
-                        .HasForeignKey("LeagueId");
+                        .WithMany("Leagues")
+                        .HasForeignKey("CountryId");
 
                     b.Navigation("Country");
                 });
 
             modelBuilder.Entity("MathcesApi.DbModel.Match", b =>
                 {
+                    b.HasOne("MathcesApi.DbModel.Team", "GuestTeam")
+                        .WithMany("GuestMatches")
+                        .HasForeignKey("GuestTeamId");
+
                     b.HasOne("MathcesApi.DbModel.Team", "HomeTeam")
-                        .WithMany("Match")
-                        .HasForeignKey("HomeTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("HomeMatches")
+                        .HasForeignKey("HomeTeamId");
+
+                    b.HasOne("MathcesApi.DbModel.League", "League")
+                        .WithMany("Matches")
+                        .HasForeignKey("LeagueId");
 
                     b.HasOne("MathcesApi.DbModel.Stadium", "Stadium")
-                        .WithMany("Match")
+                        .WithMany("Matches")
                         .HasForeignKey("StadiumId");
 
+                    b.Navigation("GuestTeam");
+
                     b.Navigation("HomeTeam");
+
+                    b.Navigation("League");
 
                     b.Navigation("Stadium");
                 });
 
             modelBuilder.Entity("MathcesApi.DbModel.Team", b =>
                 {
-                    b.HasOne("MathcesApi.DbModel.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MathcesApi.DbModel.League", "League")
-                        .WithMany()
-                        .HasForeignKey("LeagueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Country");
+                        .WithMany("Teams")
+                        .HasForeignKey("LeagueId");
 
                     b.Navigation("League");
                 });
 
             modelBuilder.Entity("MathcesApi.DbModel.Country", b =>
                 {
-                    b.Navigation("League");
+                    b.Navigation("Leagues");
                 });
 
             modelBuilder.Entity("MathcesApi.DbModel.League", b =>
                 {
-                    b.Navigation("Legue");
+                    b.Navigation("Matches");
+
+                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("MathcesApi.DbModel.Stadium", b =>
                 {
-                    b.Navigation("Match");
+                    b.Navigation("Matches");
                 });
 
             modelBuilder.Entity("MathcesApi.DbModel.Team", b =>
                 {
-                    b.Navigation("Match");
+                    b.Navigation("GuestMatches");
+
+                    b.Navigation("HomeMatches");
                 });
 #pragma warning restore 612, 618
         }

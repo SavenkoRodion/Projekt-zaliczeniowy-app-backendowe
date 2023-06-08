@@ -4,13 +4,12 @@ namespace MathcesApi.DbModel
 {
     public class Match
     {
-        public int Id { get; init; }
-        [InverseProperty(" create property for Team on HomeTeam")]
-        public Team HomeTeam { get; set; }
-        [InverseProperty(" create property for Team on GuestTeam")]
-        public Team GuestTeam { get; set; }
-        public Stadium? Stadium { get; init; }
-        public DateTime? MatchDate { get; init; }
-        public float? TicketPrice { get; init; } 
+        public int Id { get; set; }
+        public Team? HomeTeam { get; set; }
+        public Team? GuestTeam { get; set; }
+        public League? League { get; set; }
+        public Stadium? Stadium { get; set; }
+        public DateTime? MatchDate { get; set; }
+        public float? TicketPrice { get; set; } 
     }
 }

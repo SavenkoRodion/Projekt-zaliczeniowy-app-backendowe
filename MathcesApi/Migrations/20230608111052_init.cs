@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MathcesApi.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,8 +43,7 @@ namespace MathcesApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    LeagueId = table.Column<int>(type: "int", nullable: true)
+                    CountryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -53,12 +52,6 @@ namespace MathcesApi.Migrations
                         name: "FK_Leagues_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Leagues_Leagues_LeagueId",
-                        column: x => x.LeagueId,
-                        principalTable: "Leagues",
                         principalColumn: "Id");
                 });
 
@@ -69,24 +62,16 @@ namespace MathcesApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LeagueId = table.Column<int>(type: "int", nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false)
+                    LeagueId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Teams_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Teams_Leagues_LeagueId",
                         column: x => x.LeagueId,
                         principalTable: "Leagues",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -95,7 +80,9 @@ namespace MathcesApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HomeTeamId = table.Column<int>(type: "int", nullable: false),
+                    HomeTeamId = table.Column<int>(type: "int", nullable: true),
+                    GuestTeamId = table.Column<int>(type: "int", nullable: true),
+                    LeagueId = table.Column<int>(type: "int", nullable: true),
                     StadiumId = table.Column<int>(type: "int", nullable: true),
                     MatchDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TicketPrice = table.Column<float>(type: "real", nullable: true)
@@ -104,16 +91,25 @@ namespace MathcesApi.Migrations
                 {
                     table.PrimaryKey("PK_Matches", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Matches_Leagues_LeagueId",
+                        column: x => x.LeagueId,
+                        principalTable: "Leagues",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Matches_Stadiums_StadiumId",
                         column: x => x.StadiumId,
                         principalTable: "Stadiums",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_Matches_Teams_GuestTeamId",
+                        column: x => x.GuestTeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Matches_Teams_HomeTeamId",
                         column: x => x.HomeTeamId,
                         principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -122,9 +118,9 @@ namespace MathcesApi.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Leagues_LeagueId",
-                table: "Leagues",
-                column: "LeagueId");
+                name: "IX_Matches_GuestTeamId",
+                table: "Matches",
+                column: "GuestTeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matches_HomeTeamId",
@@ -132,14 +128,14 @@ namespace MathcesApi.Migrations
                 column: "HomeTeamId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Matches_LeagueId",
+                table: "Matches",
+                column: "LeagueId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Matches_StadiumId",
                 table: "Matches",
                 column: "StadiumId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Teams_CountryId",
-                table: "Teams",
-                column: "CountryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_LeagueId",

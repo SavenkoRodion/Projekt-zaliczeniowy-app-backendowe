@@ -2,10 +2,10 @@
 {
     public class Team
     {
-        public int Id { get; init; }
-        public string Name { get; init; }
-        public League League { get; init; }
-        public Country Country { get; init; }
-        public IEnumerable<Match> Match { get; init; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public League? League { get; set; }
+        public IEnumerable<Match> HomeMatches { get; set; }
+        public IEnumerable<Match> GuestMatches { get; set; }
     }
 }

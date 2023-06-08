@@ -2,9 +2,9 @@
 {
     public class Stadium
     {
-        public int Id { get; init; }
-        public string Name { get; init; }
-        public string Address { get; init; }
-        public IEnumerable<Match> Match { get; init; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public IEnumerable<Match> Matches { get; set; }
     }
 }

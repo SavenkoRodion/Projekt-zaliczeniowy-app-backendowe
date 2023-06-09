@@ -1,8 +1,9 @@
-﻿using FastEndpoints;
-using Wsei.Matches.Core.ContributorAggregate;
+﻿using Wsei.Matches.Core.ContributorAggregate;
 using Wsei.Matches.SharedKernel.Interfaces;
+using FastEndpoints;
 
 namespace Wsei.Matches.Web.Endpoints.ContributorEndpoints;
+
 public class Update : Endpoint<UpdateContributorRequest, UpdateContributorResponse>
 {
   private readonly IRepository<Contributor> _repository;

@@ -1,8 +1,9 @@
 ﻿using System.Net.Mail;
-using Microsoft.Extensions.Logging;
 using Wsei.Matches.Core.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace Wsei.Matches.Infrastructure;
+
 public class SmtpEmailSender : IEmailSender
 {
   private readonly ILogger<SmtpEmailSender> _logger;

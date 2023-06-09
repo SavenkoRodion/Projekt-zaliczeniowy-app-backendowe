@@ -1,9 +1,10 @@
-﻿using MediatR;
-using Wsei.Matches.Core.ContributorAggregate.Events;
-using Wsei.Matches.Core.ProjectAggregate.Specifications;
+﻿using Wsei.Matches.Core.ContributorAggregate.Events;
 using Wsei.Matches.SharedKernel.Interfaces;
+using Wsei.Matches.Core.ProjectAggregate.Specifications;
+using MediatR;
 
 namespace Wsei.Matches.Core.ProjectAggregate.Handlers;
+
 public class ContributorDeletedHandler : INotificationHandler<ContributorDeletedEvent>
 {
   private readonly IRepository<Project> _repository;

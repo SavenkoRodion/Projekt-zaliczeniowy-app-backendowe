@@ -2,6 +2,7 @@
 using Xunit;
 
 namespace Wsei.Matches.IntegrationTests.Data;
+
 public class EfRepositoryAdd : BaseEfRepoTestFixture
 {
   [Fact]

@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using Wsei.Matches.Web.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Wsei.Matches.Web.Controllers;
+
 /// <summary>
 /// A sample MVC controller that uses views.
 /// Razor Pages provides a better way to manage view-based content, since the behavior, viewmodel, and view are all in one place,

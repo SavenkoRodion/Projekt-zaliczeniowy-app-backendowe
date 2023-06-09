@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Wsei.Matches.Core.ProjectAggregate;
+﻿using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.Core.ProjectAggregate.Specifications;
 using Wsei.Matches.SharedKernel.Interfaces;
 using Wsei.Matches.Web.ApiModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Wsei.Matches.Web.Api;
+
 /// <summary>
 /// A sample API Controller. Consider using API Endpoints (see Endpoints folder) for a more SOLID approach to building APIs
 /// https://github.com/ardalis/ApiEndpoints

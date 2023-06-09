@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 namespace Wsei.Matches.Web.Api;
+
 public class MetaController : BaseApiController
 {
   /// <summary>

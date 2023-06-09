@@ -1,7 +1,8 @@
-﻿using MediatR;
-using Wsei.Matches.SharedKernel.Interfaces;
+﻿using Wsei.Matches.SharedKernel.Interfaces;
+using MediatR;
 
 namespace Wsei.Matches.SharedKernel;
+
 public class DomainEventDispatcher : IDomainEventDispatcher
 {
   private readonly IMediator _mediator;

@@ -1,6 +1,7 @@
 ﻿using Wsei.Matches.Core.ProjectAggregate;
 
 namespace Wsei.Matches.Web.ViewModels;
+
 public class ToDoItemViewModel
 {
   public int Id { get; set; }

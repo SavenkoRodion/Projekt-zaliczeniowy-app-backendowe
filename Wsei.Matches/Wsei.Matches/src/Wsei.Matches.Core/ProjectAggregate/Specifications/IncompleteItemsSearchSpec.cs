@@ -1,6 +1,7 @@
 ﻿using Ardalis.Specification;
 
 namespace Wsei.Matches.Core.ProjectAggregate.Specifications;
+
 public class IncompleteItemsSearchSpec : Specification<ToDoItem>
 {
   public IncompleteItemsSearchSpec(string searchString)

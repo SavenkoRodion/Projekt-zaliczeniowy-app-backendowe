@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
 using Autofac;
-using MediatR;
-using MediatR.Pipeline;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.Infrastructure.Data;
 using Wsei.Matches.SharedKernel;
 using Wsei.Matches.SharedKernel.Interfaces;
+using MediatR;
+using MediatR.Pipeline;
 using Module = Autofac.Module;
 
 namespace Wsei.Matches.Infrastructure;
+
 public class DefaultInfrastructureModule : Module
 {
   private readonly bool _isDevelopment = false;
@@ -77,8 +78,8 @@ public class DefaultInfrastructureModule : Module
 
     var mediatrOpenTypes = new[]
     {
-      typeof(IRequestHandler<,>),
-      typeof(IRequestExceptionHandler<,,>),
+      typeof(IRequestHandler<,>), 
+      typeof(IRequestExceptionHandler<,,>), 
       typeof(IRequestExceptionAction<,>),
       typeof(INotificationHandler<>),
     };

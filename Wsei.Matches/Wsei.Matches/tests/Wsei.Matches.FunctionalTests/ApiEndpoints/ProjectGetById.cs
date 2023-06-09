@@ -4,6 +4,7 @@ using Wsei.Matches.Web.Endpoints.ProjectEndpoints;
 using Xunit;
 
 namespace Wsei.Matches.FunctionalTests.ApiEndpoints;
+
 [Collection("Sequential")]
 public class ProjectGetById : IClassFixture<CustomWebApplicationFactory<Program>>
 {

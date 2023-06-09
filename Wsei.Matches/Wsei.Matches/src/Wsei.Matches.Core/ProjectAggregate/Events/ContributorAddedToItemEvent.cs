@@ -1,6 +1,7 @@
 ﻿using Wsei.Matches.SharedKernel;
 
 namespace Wsei.Matches.Core.ProjectAggregate.Events;
+
 public class ContributorAddedToItemEvent : DomainEventBase
 {
   public int ContributorId { get; set; }

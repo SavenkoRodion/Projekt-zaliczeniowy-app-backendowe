@@ -2,6 +2,7 @@
 using Xunit;
 
 namespace Wsei.Matches.FunctionalTests.ControllerViews;
+
 [Collection("Sequential")]
 public class HomeControllerIndex : IClassFixture<CustomWebApplicationFactory<Program>>
 {

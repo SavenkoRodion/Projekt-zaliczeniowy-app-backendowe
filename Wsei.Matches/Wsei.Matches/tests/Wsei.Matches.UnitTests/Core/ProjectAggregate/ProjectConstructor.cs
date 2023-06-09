@@ -2,6 +2,7 @@
 using Xunit;
 
 namespace Wsei.Matches.UnitTests.Core.ProjectAggregate;
+
 public class ProjectConstructor
 {
   private string _testName = "test name";

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Wsei.Matches.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Wsei.Matches.Infrastructure.Data;
 
 namespace Wsei.Matches.Infrastructure;
+
 public static class StartupSetup
 {
   public static void AddDbContext(this IServiceCollection services, string connectionString) =>

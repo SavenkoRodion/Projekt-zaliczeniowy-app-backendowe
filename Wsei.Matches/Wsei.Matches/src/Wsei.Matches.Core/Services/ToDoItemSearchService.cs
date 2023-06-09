@@ -5,6 +5,7 @@ using Wsei.Matches.Core.ProjectAggregate.Specifications;
 using Wsei.Matches.SharedKernel.Interfaces;
 
 namespace Wsei.Matches.Core.Services;
+
 public class ToDoItemSearchService : IToDoItemSearchService
 {
   private readonly IRepository<Project> _repository;

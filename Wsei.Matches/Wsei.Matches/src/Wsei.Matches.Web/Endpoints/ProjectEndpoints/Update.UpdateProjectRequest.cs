@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Wsei.Matches.Web.Endpoints.ProjectEndpoints;
+
 public class UpdateProjectRequest
 {
   public const string Route = "/Projects";

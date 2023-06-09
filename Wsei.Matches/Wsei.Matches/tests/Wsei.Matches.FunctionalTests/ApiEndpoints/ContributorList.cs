@@ -4,6 +4,7 @@ using Wsei.Matches.Web.Endpoints.ContributorEndpoints;
 using Xunit;
 
 namespace Wsei.Matches.FunctionalTests.ApiEndpoints;
+
 [Collection("Sequential")]
 public class ContributorList : IClassFixture<CustomWebApplicationFactory<Program>>
 {

@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Wsei.Matches.Web.Endpoints.ContributorEndpoints;
+
 public class CreateContributorRequest
 {
   public const string Route = "/Contributors";

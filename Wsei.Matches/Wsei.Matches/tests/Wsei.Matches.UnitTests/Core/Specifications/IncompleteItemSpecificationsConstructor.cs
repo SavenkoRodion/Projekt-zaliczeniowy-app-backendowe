@@ -3,6 +3,7 @@ using Wsei.Matches.Core.ProjectAggregate.Specifications;
 using Xunit;
 
 namespace Wsei.Matches.UnitTests.Core.Specifications;
+
 public class IncompleteItemsSpecificationConstructor
 {
   [Fact]

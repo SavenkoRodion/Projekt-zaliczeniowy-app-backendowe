@@ -1,9 +1,10 @@
 ﻿using System.Text;
-using Newtonsoft.Json;
 using Wsei.Matches.Web;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Wsei.Matches.FunctionalTests.ControllerApis;
+
 [Collection("Sequential")]
 public class ProjectItemMarkComplete : IClassFixture<CustomWebApplicationFactory<Program>>
 {

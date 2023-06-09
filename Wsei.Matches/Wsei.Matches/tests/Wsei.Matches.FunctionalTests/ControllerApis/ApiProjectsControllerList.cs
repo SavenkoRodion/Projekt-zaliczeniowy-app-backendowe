@@ -4,6 +4,7 @@ using Wsei.Matches.Web.ApiModels;
 using Xunit;
 
 namespace Wsei.Matches.FunctionalTests.ControllerApis;
+
 [Collection("Sequential")]
 public class ProjectCreate : IClassFixture<CustomWebApplicationFactory<Program>>
 {

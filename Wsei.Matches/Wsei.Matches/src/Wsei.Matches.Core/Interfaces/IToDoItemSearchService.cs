@@ -2,6 +2,7 @@
 using Wsei.Matches.Core.ProjectAggregate;
 
 namespace Wsei.Matches.Core.Interfaces;
+
 public interface IToDoItemSearchService
 {
   Task<Result<ToDoItem>> GetNextIncompleteItemAsync(int projectId);

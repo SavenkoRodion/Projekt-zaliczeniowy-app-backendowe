@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Wsei.Matches.Core.ContributorAggregate;
+﻿using Wsei.Matches.Core.ContributorAggregate;
 using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Wsei.Matches.Web;
+
 public static class SeedData
 {
-  public static readonly Contributor Contributor1 = new("Ardalis");
-  public static readonly Contributor Contributor2 = new("Snowfrog");
+  public static readonly Contributor Contributor1 = new ("Ardalis");
+  public static readonly Contributor Contributor2 = new ("Snowfrog");
   public static readonly Project TestProject1 = new Project("Test Project", PriorityStatus.Backlog);
   public static readonly ToDoItem ToDoItem1 = new ToDoItem
   {

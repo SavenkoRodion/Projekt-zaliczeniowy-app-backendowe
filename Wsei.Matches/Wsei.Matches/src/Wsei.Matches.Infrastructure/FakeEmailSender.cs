@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using Wsei.Matches.Core.Interfaces;
+﻿using Wsei.Matches.Core.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace Wsei.Matches.Infrastructure;
+
 public class FakeEmailSender : IEmailSender
 {
   private readonly ILogger<FakeEmailSender> _logger;

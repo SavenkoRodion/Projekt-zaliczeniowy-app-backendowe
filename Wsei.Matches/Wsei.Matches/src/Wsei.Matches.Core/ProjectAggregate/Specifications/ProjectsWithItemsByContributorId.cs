@@ -1,6 +1,7 @@
 ﻿using Ardalis.Specification;
 
 namespace Wsei.Matches.Core.ProjectAggregate.Specifications;
+
 public class ProjectsWithItemsByContributorIdSpec : Specification<Project>, ISingleResultSpecification
 {
   public ProjectsWithItemsByContributorIdSpec(int contributorId)

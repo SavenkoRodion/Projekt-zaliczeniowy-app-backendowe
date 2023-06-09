@@ -1,9 +1,10 @@
 ﻿using Ardalis.GuardClauses;
-using MediatR;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Core.ProjectAggregate.Events;
+using MediatR;
 
 namespace Wsei.Matches.Core.ProjectAggregate.Handlers;
+
 public class ItemCompletedEmailNotificationHandler : INotificationHandler<ToDoItemCompletedEvent>
 {
   private readonly IEmailSender _emailSender;

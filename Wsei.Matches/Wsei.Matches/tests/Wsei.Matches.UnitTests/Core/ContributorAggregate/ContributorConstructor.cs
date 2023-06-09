@@ -2,6 +2,7 @@
 using Xunit;
 
 namespace Wsei.Matches.UnitTests.Core.ContributorAggregate;
+
 public class ContributorConstructor
 {
   private readonly string _testName = "test name";

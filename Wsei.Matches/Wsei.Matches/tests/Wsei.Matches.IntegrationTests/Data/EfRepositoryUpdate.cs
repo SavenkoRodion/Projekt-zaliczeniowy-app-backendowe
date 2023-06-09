@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Wsei.Matches.Core.ProjectAggregate;
+﻿using Wsei.Matches.Core.ProjectAggregate;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace Wsei.Matches.IntegrationTests.Data;
+
 public class EfRepositoryUpdate : BaseEfRepoTestFixture
 {
   [Fact]

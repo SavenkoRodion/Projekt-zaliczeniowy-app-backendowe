@@ -2,6 +2,7 @@
 using Xunit;
 
 namespace Wsei.Matches.UnitTests.Core.ProjectAggregate;
+
 public class Project_AddItem
 {
   private Project _testProject = new Project("some name", PriorityStatus.Backlog);

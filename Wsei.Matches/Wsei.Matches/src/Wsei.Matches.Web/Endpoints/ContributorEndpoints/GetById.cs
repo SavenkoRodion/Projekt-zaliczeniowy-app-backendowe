@@ -1,9 +1,10 @@
-﻿using FastEndpoints;
-using Wsei.Matches.Core.ContributorAggregate;
+﻿using Wsei.Matches.Core.ContributorAggregate;
 using Wsei.Matches.Core.ProjectAggregate.Specifications;
 using Wsei.Matches.SharedKernel.Interfaces;
+using FastEndpoints;
 
 namespace Wsei.Matches.Web.Endpoints.ContributorEndpoints;
+
 public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
 {
   private readonly IRepository<Contributor> _repository;
@@ -20,7 +21,7 @@ public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
     Options(x => x
       .WithTags("ContributorEndpoints"));
   }
-  public override async Task HandleAsync(GetContributorByIdRequest request,
+  public override async Task HandleAsync(GetContributorByIdRequest request, 
     CancellationToken cancellationToken)
   {
     var spec = new ContributorByIdSpec(request.ContributorId);

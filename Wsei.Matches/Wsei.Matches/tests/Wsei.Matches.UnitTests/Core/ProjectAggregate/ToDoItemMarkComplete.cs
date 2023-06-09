@@ -2,6 +2,7 @@
 using Xunit;
 
 namespace Wsei.Matches.UnitTests.Core.ProjectAggregate;
+
 public class ToDoItemMarkComplete
 {
   [Fact]

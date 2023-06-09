@@ -1,11 +1,12 @@
 ﻿using Ardalis.ApiEndpoints;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.Core.ProjectAggregate.Specifications;
 using Wsei.Matches.SharedKernel.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Wsei.Matches.Web.Endpoints.ProjectEndpoints;
+
 public class GetById : EndpointBaseAsync
   .WithRequest<GetProjectByIdRequest>
   .WithActionResult<GetProjectByIdResponse>

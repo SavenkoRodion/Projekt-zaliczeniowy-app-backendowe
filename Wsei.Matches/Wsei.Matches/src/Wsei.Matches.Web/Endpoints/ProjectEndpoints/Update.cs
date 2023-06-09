@@ -1,10 +1,11 @@
 ﻿using Ardalis.ApiEndpoints;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.SharedKernel.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Wsei.Matches.Web.Endpoints.ProjectEndpoints;
+
 public class Update : EndpointBaseAsync
     .WithRequest<UpdateProjectRequest>
     .WithActionResult<UpdateProjectResponse>
@@ -25,7 +26,7 @@ public class Update : EndpointBaseAsync
   ]
   public override async Task<ActionResult<UpdateProjectResponse>> HandleAsync(
     UpdateProjectRequest request,
-      CancellationToken cancellationToken = new())
+      CancellationToken cancellationToken = new ())
   {
     if (request.Name == null)
     {

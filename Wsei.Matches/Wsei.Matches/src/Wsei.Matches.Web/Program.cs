@@ -1,15 +1,15 @@
 ﻿using Ardalis.ListStartupServices;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using FastEndpoints;
-using FastEndpoints.ApiExplorer;
-using FastEndpoints.Swagger.Swashbuckle;
-using Microsoft.OpenApi.Models;
-using Serilog;
 using Wsei.Matches.Core;
 using Wsei.Matches.Infrastructure;
 using Wsei.Matches.Infrastructure.Data;
 using Wsei.Matches.Web;
+using FastEndpoints;
+using FastEndpoints.Swagger.Swashbuckle;
+using FastEndpoints.ApiExplorer;
+using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

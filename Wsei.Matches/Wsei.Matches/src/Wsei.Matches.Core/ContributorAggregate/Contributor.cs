@@ -3,6 +3,7 @@ using Wsei.Matches.SharedKernel;
 using Wsei.Matches.SharedKernel.Interfaces;
 
 namespace Wsei.Matches.Core.ContributorAggregate;
+
 public class Contributor : EntityBase, IAggregateRoot
 {
   public string Name { get; private set; }

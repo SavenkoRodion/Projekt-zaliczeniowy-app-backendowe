@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Wsei.Matches.Core.ProjectAggregate;
+﻿using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.Infrastructure.Data;
 using Wsei.Matches.SharedKernel.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Moq;
 
 namespace Wsei.Matches.IntegrationTests.Data;
+
 public abstract class BaseEfRepoTestFixture
 {
   protected AppDbContext _dbContext;

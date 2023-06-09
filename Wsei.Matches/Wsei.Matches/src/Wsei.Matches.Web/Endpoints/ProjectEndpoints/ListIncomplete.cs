@@ -1,9 +1,10 @@
 ﻿using Ardalis.ApiEndpoints;
+using Wsei.Matches.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Wsei.Matches.Core.Interfaces;
 
 namespace Wsei.Matches.Web.Endpoints.ProjectEndpoints;
+
 public class ListIncomplete : EndpointBaseAsync
   .WithRequest<ListIncompleteRequest>
   .WithActionResult<ListIncompleteResponse>

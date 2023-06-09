@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Wsei.Matches.Core.ProjectAggregate;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Wsei.Matches.Core.ProjectAggregate;
 
 namespace Wsei.Matches.Infrastructure.Data.Config;
+
 public class ProjectConfiguration : IEntityTypeConfiguration<Project>
 {
   public void Configure(EntityTypeBuilder<Project> builder)

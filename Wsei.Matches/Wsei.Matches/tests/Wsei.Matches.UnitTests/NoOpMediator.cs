@@ -2,6 +2,7 @@
 using MediatR;
 
 namespace Wsei.Matches.UnitTests;
+
 public class NoOpMediator : IMediator
 {
   public Task Publish(object notification, CancellationToken cancellationToken = default)

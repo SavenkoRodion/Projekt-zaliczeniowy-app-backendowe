@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Wsei.Matches.Core.ProjectAggregate;
+﻿using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.Core.ProjectAggregate.Specifications;
 using Wsei.Matches.SharedKernel.Interfaces;
 using Wsei.Matches.Web.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Wsei.Matches.Web.Controllers;
+
 [Route("[controller]")]
 public class ProjectController : Controller
 {

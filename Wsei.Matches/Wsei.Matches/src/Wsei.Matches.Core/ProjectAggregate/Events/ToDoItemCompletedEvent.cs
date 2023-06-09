@@ -1,6 +1,7 @@
 ﻿using Wsei.Matches.SharedKernel;
 
 namespace Wsei.Matches.Core.ProjectAggregate.Events;
+
 public class ToDoItemCompletedEvent : DomainEventBase
 {
   public ToDoItem CompletedItem { get; set; }

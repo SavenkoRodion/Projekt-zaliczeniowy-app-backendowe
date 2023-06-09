@@ -1,11 +1,12 @@
-﻿using Moq;
-using Wsei.Matches.Core.Interfaces;
+﻿using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.Core.ProjectAggregate.Events;
 using Wsei.Matches.Core.ProjectAggregate.Handlers;
+using Moq;
 using Xunit;
 
 namespace Wsei.Matches.UnitTests.Core.Handlers;
+
 public class ItemCompletedEmailNotificationHandlerHandle
 {
   private ItemCompletedEmailNotificationHandler _handler;

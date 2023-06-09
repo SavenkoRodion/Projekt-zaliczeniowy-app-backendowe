@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Wsei.Matches.Web.Filters;
+
 /// <summary>
 /// This filter is no longer needed since [ApiController] provides this automatically for APIs.
 /// Both the BaseApiController and all ApiEndpoints in this sample use [ApiController].

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Wsei.Matches.Web.Endpoints.ProjectEndpoints;
+
 public class ListIncompleteRequest
 {
   [FromRoute]

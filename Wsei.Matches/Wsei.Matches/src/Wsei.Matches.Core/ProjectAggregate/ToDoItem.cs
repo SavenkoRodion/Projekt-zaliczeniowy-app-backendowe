@@ -3,6 +3,7 @@ using Wsei.Matches.Core.ProjectAggregate.Events;
 using Wsei.Matches.SharedKernel;
 
 namespace Wsei.Matches.Core.ProjectAggregate;
+
 public class ToDoItem : EntityBase
 {
   public string Title { get; set; } = string.Empty;

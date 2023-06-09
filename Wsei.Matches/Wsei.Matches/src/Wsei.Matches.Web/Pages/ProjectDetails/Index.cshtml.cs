@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Wsei.Matches.Core.ProjectAggregate;
+﻿using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.Core.ProjectAggregate.Specifications;
 using Wsei.Matches.SharedKernel.Interfaces;
 using Wsei.Matches.Web.ApiModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Wsei.Matches.Web.Pages.ProjectDetails;
+
 public class IndexModel : PageModel
 {
   private readonly IRepository<Project> _repository;

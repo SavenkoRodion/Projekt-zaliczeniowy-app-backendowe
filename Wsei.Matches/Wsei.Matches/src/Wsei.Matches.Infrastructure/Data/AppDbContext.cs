@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
-using Microsoft.EntityFrameworkCore;
 using Wsei.Matches.Core.ContributorAggregate;
 using Wsei.Matches.Core.ProjectAggregate;
 using Wsei.Matches.SharedKernel;
 using Wsei.Matches.SharedKernel.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Wsei.Matches.Infrastructure.Data;
+
 public class AppDbContext : DbContext
 {
   private readonly IDomainEventDispatcher? _dispatcher;
@@ -19,7 +20,7 @@ public class AppDbContext : DbContext
 
   public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
   public DbSet<Project> Projects => Set<Project>();
-  public DbSet<Contributor> Contributors => Set<Contributor>();
+  public DbSet<Contributor> Contributors => Set<Contributor>(); 
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

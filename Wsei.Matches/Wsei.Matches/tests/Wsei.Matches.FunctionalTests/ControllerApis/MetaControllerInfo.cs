@@ -2,6 +2,7 @@
 using Xunit;
 
 namespace Wsei.Matches.FunctionalTests.ControllerApis;
+
 [Collection("Sequential")]
 public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<Program>>
 {

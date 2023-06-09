@@ -1,11 +1,12 @@
 using Ardalis.Result;
-using MediatR;
 using Wsei.Matches.Core.ContributorAggregate;
 using Wsei.Matches.Core.ContributorAggregate.Events;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.SharedKernel.Interfaces;
+using MediatR;
 
 namespace Wsei.Matches.Core.Services;
+
 public class DeleteContributorService : IDeleteContributorService
 {
   private readonly IRepository<Contributor> _repository;

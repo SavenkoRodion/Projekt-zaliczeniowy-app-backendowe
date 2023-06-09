@@ -1,8 +1,9 @@
-﻿using Ardalis.Result;
-using FastEndpoints;
+﻿using FastEndpoints;
+using Ardalis.Result;
 using Wsei.Matches.Core.Interfaces;
 
 namespace Wsei.Matches.Web.Endpoints.ContributorEndpoints;
+
 public class Delete : Endpoint<DeleteContributorRequest>
 {
 

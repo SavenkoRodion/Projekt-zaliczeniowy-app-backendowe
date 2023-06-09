@@ -4,6 +4,7 @@ using Wsei.Matches.SharedKernel;
 using Wsei.Matches.SharedKernel.Interfaces;
 
 namespace Wsei.Matches.Core.ProjectAggregate;
+
 public class Project : EntityBase, IAggregateRoot
 {
   public string Name { get; private set; }

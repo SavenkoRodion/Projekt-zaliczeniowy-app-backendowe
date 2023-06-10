@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathcesApi", "MathcesApi\MathcesApi.csproj", "{4157D175-5BAC-44C9-9578-0944B965CBF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathces.Web", "MathcesApi\Mathces.Web.csproj", "{4157D175-5BAC-44C9-9578-0944B965CBF3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerPricesApi", "PlayerPricesApi\PlayerPricesApi.csproj", "{9A7EC1A6-D57C-4EE4-BB5A-2638526307B0}"
 EndProject

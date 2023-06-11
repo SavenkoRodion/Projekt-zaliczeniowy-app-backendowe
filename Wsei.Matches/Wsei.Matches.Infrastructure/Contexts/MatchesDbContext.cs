@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Wsei.Matches.Core.DbModel;
 
-namespace Wsei.Matches.Infrastructure
+namespace Wsei.Matches.Infrastructure.Contexts
 {
     public class MatchesDbContext : DbContext
     {

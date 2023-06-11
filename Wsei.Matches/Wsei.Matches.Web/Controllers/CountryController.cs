@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Wsei.Matches.Core.ServiceInterfaces;
+using Wsei.Matches.Core.Interfaces.ServiceInterfaces;
 
 namespace Wsei.Matches.Web.Controllers
 {

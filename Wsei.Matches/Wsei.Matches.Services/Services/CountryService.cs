@@ -8,7 +8,7 @@ namespace Wsei.Matches.Application.Services
 
         public string Test()
         {
-            return "Lol";
+            return "Test message";
         }
     }
 

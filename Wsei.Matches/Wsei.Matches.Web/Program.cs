@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Wsei.Matches.Infrastructure.Data;
+using Wsei.Matches.Application.Services;
+using Wsei.Matches.Core.ServiceInterfaces;
+using Wsei.Matches.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MatchesDbContext>(
        options => options.UseSqlServer("name=ConnectionStrings:MatchesDb"));
-
+builder.Services.AddScoped<ICountryService, CountryService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

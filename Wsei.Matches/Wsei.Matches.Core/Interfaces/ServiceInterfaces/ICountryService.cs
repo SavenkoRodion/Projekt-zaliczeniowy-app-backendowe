@@ -1,4 +1,4 @@
-﻿namespace Wsei.Matches.Core.ServiceInterfaces
+﻿namespace Wsei.Matches.Core.Interfaces.ServiceInterfaces
 {
     public interface ICountryService
     {

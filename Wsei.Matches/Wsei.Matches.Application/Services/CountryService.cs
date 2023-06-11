@@ -1,4 +1,4 @@
-﻿using Wsei.Matches.Core.ServiceInterfaces;
+﻿using Wsei.Matches.Core.Interfaces.ServiceInterfaces;
 
 namespace Wsei.Matches.Application.Services
 {

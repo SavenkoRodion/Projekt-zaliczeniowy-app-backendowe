@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Wsei.Matches.Application.Services;
-using Wsei.Matches.Core.ServiceInterfaces;
+using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +9,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<MatchesDbContext>(
-       options => options.UseSqlServer("name=ConnectionStrings:MatchesDb"));
-builder.Services.AddScoped<ICountryService, CountryService>();
+
+IStartupSetup startupSetup = new StartupSetup();
+
+startupSetup.AddDbContexts(builder.Services, "name=ConnectionStrings:MatchesDb");
+startupSetup.AddServicesToInterfaces(builder.Services);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

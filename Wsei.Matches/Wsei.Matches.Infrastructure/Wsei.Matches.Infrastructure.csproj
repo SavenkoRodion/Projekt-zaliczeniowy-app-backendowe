@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Wsei.Matches.Services\Wsei.Matches.Application.csproj" />
+    <ProjectReference Include="..\Wsei.Matches.Application\Wsei.Matches.Application.csproj" />
   </ItemGroup>
 
 </Project>

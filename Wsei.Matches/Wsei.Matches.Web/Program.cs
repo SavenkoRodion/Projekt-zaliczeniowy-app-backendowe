@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Wsei.Matches.Infrastructure.Data;
+using Wsei.Matches.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

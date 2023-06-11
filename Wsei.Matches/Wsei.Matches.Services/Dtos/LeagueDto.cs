@@ -1,4 +1,4 @@
-﻿namespace Wsei.Matches.Web.Dtos
+﻿namespace Wsei.Matches.Application.Dtos
 {
     public class LeagueDto
     {

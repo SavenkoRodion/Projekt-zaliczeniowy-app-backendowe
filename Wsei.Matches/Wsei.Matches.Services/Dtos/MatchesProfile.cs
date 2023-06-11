@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Wsei.Matches.Core.DbModel;
-using Wsei.Matches.Web.Dtos;
-namespace Wsei.Matches.Web.Profiles
+
+namespace Wsei.Matches.Application.Dtos
 {
     public class MatchesProfile : Profile
     {

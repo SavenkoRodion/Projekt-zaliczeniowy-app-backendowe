@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Wsei.Matches.Core.ServiceInterfaces;
 
 namespace Wsei.Matches.Web.Controllers
 {
@@ -6,21 +7,16 @@ namespace Wsei.Matches.Web.Controllers
     [Route("/country")]
     public class CountryController : ControllerBase
     {
-        public CountryController(ILogger<WeatherForecastController> logger)
+        private ICountryService _countryService;
+        public CountryController(ICountryService countryService)
         {
-            _logger = logger;
+            _countryService = countryService;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("all")]
+        public string All()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return _countryService.Test();
         }
     }
 }

@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Wsei.Matches.Application.Dtos;
+using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Core.Interfaces.ServiceInterfaces;
 
 namespace Wsei.Matches.Web.Controllers
@@ -8,15 +10,17 @@ namespace Wsei.Matches.Web.Controllers
     public class CountryController : ControllerBase
     {
         private readonly ICountryService _countryService;
-        public CountryController(ICountryService countryService)
+        private readonly IRepository<CountryDto> _countryRepository;
+        public CountryController(ICountryService countryService, IRepository<CountryDto> countryRepository)
         {
             _countryService = countryService;
+            _countryRepository = countryRepository;
         }
 
         [HttpGet("all")]
-        public string All()
+        public IEnumerable<CountryDto> All()
         {
-            return _countryService.Test();
+            return _countryRepository.GetAll();
         }
     }
 }

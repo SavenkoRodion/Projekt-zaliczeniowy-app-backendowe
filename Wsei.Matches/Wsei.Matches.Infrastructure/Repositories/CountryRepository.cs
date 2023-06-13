@@ -19,11 +19,11 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public IEnumerable<CountryDto> GetAll()
         {
-            IEnumerable<Country> lol = _matchesDbContext.Countries.ToList();
+            IEnumerable<Country> countriesDbModel = _matchesDbContext.Countries.ToList();
 
-            IEnumerable<CountryDto> lolDto = _mapper.Map<IEnumerable<CountryDto>>(lol);
+            IEnumerable<CountryDto> countriesDto = _mapper.Map<IEnumerable<CountryDto>>(countriesDbModel);
 
-            return lolDto;
+            return countriesDto;
         }
     }
 }

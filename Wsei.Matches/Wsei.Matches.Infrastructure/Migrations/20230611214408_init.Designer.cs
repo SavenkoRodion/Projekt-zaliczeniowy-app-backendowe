@@ -12,7 +12,7 @@ using Wsei.Matches.Infrastructure.Contexts;
 namespace Wsei.Matches.Infrastructure.Migrations
 {
     [DbContext(typeof(MatchesDbContext))]
-    [Migration("20230610095120_init")]
+    [Migration("20230611214408_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -40,6 +40,18 @@ namespace Wsei.Matches.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "TestCountry"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "TestCountry2"
+                        });
                 });
 
             modelBuilder.Entity("Wsei.Matches.Core.DbModel.League", b =>

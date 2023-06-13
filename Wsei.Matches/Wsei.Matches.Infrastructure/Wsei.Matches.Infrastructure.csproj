@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Wsei.Matches.Application\Wsei.Matches.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

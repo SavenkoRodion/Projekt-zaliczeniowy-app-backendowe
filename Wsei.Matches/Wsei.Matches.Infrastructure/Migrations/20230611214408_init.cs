@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Wsei.Matches.Infrastructure.Migrations
 {
     /// <inheritdoc />
@@ -112,6 +114,15 @@ namespace Wsei.Matches.Infrastructure.Migrations
                         column: x => x.HomeTeamId,
                         principalTable: "Teams",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Countries",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "TestCountry" },
+                    { 2, "TestCountry2" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -13,6 +13,9 @@ namespace Wsei.Matches.Infrastructure.Contexts
         {
             builder.Entity<Match>().HasOne(adv => adv.HomeTeam).WithMany(x => x.HomeMatches).OnDelete(DeleteBehavior.ClientSetNull);
             builder.Entity<Match>().HasOne(adv => adv.GuestTeam).WithMany(x => x.GuestMatches).OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.Entity<Country>().HasData(new Country { Id = 1, Name = "TestCountry" });
+            builder.Entity<Country>().HasData(new Country { Id = 2, Name = "TestCountry2" });
         }
 
         public DbSet<Country> Countries { get; set; }

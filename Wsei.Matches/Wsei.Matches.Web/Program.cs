@@ -14,6 +14,7 @@ IStartupSetup startupSetup = new StartupSetup();
 
 startupSetup.AddDbContexts(builder.Services, "name=ConnectionStrings:MatchesDb");
 startupSetup.AddServicesToInterfaces(builder.Services);
+startupSetup.AddRepositoriesToInterfaces(builder.Services);
 
 var app = builder.Build();
 

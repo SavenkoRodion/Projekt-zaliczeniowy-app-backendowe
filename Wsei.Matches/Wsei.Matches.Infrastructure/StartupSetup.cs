@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Wsei.Matches.Application.Dtos;
 using Wsei.Matches.Application.Services;
-using Wsei.Matches.Core.DbModel;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Core.Interfaces.ServiceInterfaces;
 using Wsei.Matches.Infrastructure.Contexts;
-using Wsei.Matches.Infrastructure.Repository;
+using Wsei.Matches.Infrastructure.Repositories;
 
 namespace Wsei.Matches.Infrastructure
 {
@@ -24,7 +24,12 @@ namespace Wsei.Matches.Infrastructure
 
         public void AddRepositoriesToInterfaces(IServiceCollection services)
         {
-            services.AddScoped<IRepository<Country>, CountryRepository>();
+            services.AddScoped<IRepository<CountryDto>, CountryRepository>();
+        }
+
+        public void AddMapper(IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(StartupSetup));
         }
     }
 }

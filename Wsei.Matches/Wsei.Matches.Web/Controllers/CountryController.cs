@@ -18,9 +18,16 @@ namespace Wsei.Matches.Web.Controllers
         }
 
         [HttpGet("all")]
-        public IEnumerable<CountryDto> All()
+        public async Task<IEnumerable<CountryDto>> GetAllAsync()
         {
-            return _countryRepository.GetAll();
+            return await _countryRepository.GetAllAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<CountryDto> GetByCountryId(int id)
+        {
+            var country = await _countryRepository.GetByIdAsync(id) ?? throw new Exception();
+            return country;
         }
     }
 }

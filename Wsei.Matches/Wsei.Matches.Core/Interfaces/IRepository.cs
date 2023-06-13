@@ -2,6 +2,7 @@
 {
     public interface IRepository<T>
     {
-        public IEnumerable<T> GetAll();
+        public Task<IEnumerable<T>> GetAllAsync();
+        public Task<T?> GetByIdAsync(int id);
     }
 }

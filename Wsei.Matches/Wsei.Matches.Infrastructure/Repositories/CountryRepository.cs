@@ -17,13 +17,24 @@ namespace Wsei.Matches.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public IEnumerable<CountryDto> GetAll()
+        public async Task<IEnumerable<CountryDto>> GetAllAsync()
         {
             IEnumerable<Country> countriesDbModel = _matchesDbContext.Countries.ToList();
 
             IEnumerable<CountryDto> countriesDto = _mapper.Map<IEnumerable<CountryDto>>(countriesDbModel);
 
             return countriesDto;
+        }
+
+        public async Task<CountryDto?> GetByIdAsync(int id)
+        {
+            IEnumerable<Country> countriesDbModel = _matchesDbContext.Countries.ToList();
+
+            Country? country = countriesDbModel.Where(country => country.Id == id).FirstOrDefault();
+
+            CountryDto countryDto = _mapper.Map<CountryDto>(country);
+
+            return countryDto;
         }
     }
 }

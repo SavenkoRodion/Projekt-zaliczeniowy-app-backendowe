@@ -24,7 +24,7 @@ namespace Wsei.Matches.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<CountryDto> GetByCountryId(int id)
+        public async Task<CountryDto> GetByCountryIdAsync(int id)
         {
             var country = await _countryRepository.GetByIdAsync(id) ?? throw new Exception();
             return country;

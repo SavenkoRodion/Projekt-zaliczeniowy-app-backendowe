@@ -40,11 +40,11 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task AddAsync(IEnumerable<CountryDto> countries)
         {
-            IEnumerable<Country> countriesDbModel = _mapper.Map<IEnumerable<Country>>(countries);
-
-            foreach (Country country in countriesDbModel)
+            Country countryDbModel;
+            foreach (CountryDto country in countries)
             {
-                await _matchesDbContext.Countries.AddAsync(country);
+                countryDbModel = _mapper.Map<Country>(country);
+                await _matchesDbContext.Countries.AddAsync(countryDbModel);
             }
             await _matchesDbContext.SaveChangesAsync();
         }
@@ -57,12 +57,13 @@ namespace Wsei.Matches.Infrastructure.Repositories
             }
         }
 
-        public async Task UpdateAsync(IDictionary<int, CountryDto> countriesToUpdate)
+        public async Task UpdateAsync(IEnumerable<CountryDto> countriesToUpdate)
         {
-            foreach (KeyValuePair<int, CountryDto> countryToUpdate in countriesToUpdate)
+            foreach (CountryDto countryToUpdate in countriesToUpdate)
             {
-                await _matchesDbContext.Countries.Where(country => country.Id == countryToUpdate.Key).ExecuteDeleteAsync();
-                await _matchesDbContext.Countries.AddAsync(_mapper.Map<Country>(countryToUpdate.Value));
+                Country mappedCountryToUpdate = _mapper.Map<Country>(countryToUpdate);
+                var countryFromDb = await _matchesDbContext.Countries.Where(country => country.Id == countryToUpdate.Id).FirstOrDefaultAsync();
+                countryFromDb.Name = mappedCountryToUpdate.Name;
             }
             await _matchesDbContext.SaveChangesAsync();
         }

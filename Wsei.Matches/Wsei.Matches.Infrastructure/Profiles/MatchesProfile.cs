@@ -7,11 +7,11 @@ namespace Wsei.Matches.Application.Dtos
     {
         public MatchesProfile()
         {
-            CreateMap<Country, CountryDto>();
-            CreateMap<League, LeagueDto>();
-            CreateMap<Match, MatchDto>();
-            CreateMap<Stadium, StadiumDto>();
-            CreateMap<Team, TeamDto>();
+            CreateMap<Country, CountryDto>().ReverseMap();
+            CreateMap<League, LeagueDto>().ReverseMap();
+            CreateMap<Match, MatchDto>().ReverseMap();
+            CreateMap<Stadium, StadiumDto>().ReverseMap();
+            CreateMap<Team, TeamDto>().ReverseMap();
         }
     }
 }

@@ -24,10 +24,30 @@ namespace Wsei.Matches.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<CountryDto> GetByCountryIdAsync(int id)
+        public async Task<CountryDto> GetCountryByIdAsync(int id)
         {
-            var country = await _countryRepository.GetByIdAsync(id) ?? throw new Exception();
-            return country;
+            return await _countryRepository.GetByIdAsync(id) ?? throw new Exception();
+        }
+
+        [HttpDelete("delete")]
+        public async Task<bool> DeleteCountryByIdAsync([FromBody] IEnumerable<int> id)
+        {
+            await _countryRepository.DeleteAsync(id);
+            return true;
+        }
+
+        [HttpPost("add")]
+        public async Task<bool> Add([FromBody] IEnumerable<CountryDto> countries)
+        {
+            await _countryRepository.AddAsync(countries);
+            return true;
+        }
+
+        [HttpPut("update")]
+        public async Task<bool> Update([FromBody] IEnumerable<CountryDto> countries)
+        {
+            await _countryRepository.UpdateAsync(countries);
+            return true;
         }
     }
 }

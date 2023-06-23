@@ -25,6 +25,7 @@ namespace Wsei.Matches.Infrastructure
         public void AddRepositoriesToInterfaces(IServiceCollection services)
         {
             services.AddScoped<IRepository<CountryDto>, CountryRepository>();
+            services.AddScoped<IRepository<MatchDto>, MatchRepository>();
         }
 
         public void AddMapper(IServiceCollection services)

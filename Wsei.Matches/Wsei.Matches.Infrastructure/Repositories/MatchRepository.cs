@@ -62,8 +62,9 @@ namespace Wsei.Matches.Infrastructure.Repositories
             foreach (MatchDto matchToUpdate in matchesToUpdate)
             {
                 Match mappedMatchToUpdate = _mapper.Map<Match>(matchToUpdate);
-                Match countryFromDb = await _matchesDbContext.Matches.Where(match => match.Id == matchToUpdate.Id).FirstOrDefaultAsync();
-                countryFromDb.TicketPrice = mappedMatchToUpdate.TicketPrice;
+                var matchFromDb = await _matchesDbContext.Matches.AsNoTracking().Where(match => match.Id == matchToUpdate.Id).FirstOrDefaultAsync();
+                matchFromDb = mappedMatchToUpdate;
+                _matchesDbContext.Matches.Entry(matchFromDb).State = EntityState.Modified;
             }
             await _matchesDbContext.SaveChangesAsync();
         }

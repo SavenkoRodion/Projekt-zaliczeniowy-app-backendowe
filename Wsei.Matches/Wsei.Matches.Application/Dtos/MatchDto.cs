@@ -2,7 +2,7 @@
 {
     public class MatchDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public TeamDto? HomeTeam { get; set; }
         public TeamDto? GuestTeam { get; set; }
         public LeagueDto? League { get; set; }

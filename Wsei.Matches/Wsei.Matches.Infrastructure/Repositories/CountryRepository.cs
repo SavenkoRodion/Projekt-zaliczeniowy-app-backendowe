@@ -20,30 +20,30 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<CountryDto>> GetAllAsync()
         {
-            IEnumerable<Country> countriesDbModel = _matchesDbContext.Countries.ToList();
+            IEnumerable<Country> countriesFromDb = _matchesDbContext.Countries.ToList();
 
-            IEnumerable<CountryDto> countriesDto = _mapper.Map<IEnumerable<CountryDto>>(countriesDbModel);
+            IEnumerable<CountryDto> countriesDto = _mapper.Map<IEnumerable<CountryDto>>(countriesFromDb);
 
             return countriesDto;
         }
 
         public async Task<CountryDto?> GetByIdAsync(int id)
         {
-            IEnumerable<Country> countriesDbModel = _matchesDbContext.Countries.ToList();
+            IEnumerable<Country> countriesFromDb = _matchesDbContext.Countries.ToList();
 
-            Country? country = countriesDbModel.Where(country => country.Id == id).FirstOrDefault();
+            Country? countryFromDb = countriesFromDb.Where(country => country.Id == id).FirstOrDefault();
 
-            CountryDto countryDto = _mapper.Map<CountryDto>(country);
+            CountryDto countryDto = _mapper.Map<CountryDto>(countryFromDb);
 
             return countryDto;
         }
 
-        public async Task AddAsync(IEnumerable<CountryDto> countries)
+        public async Task AddAsync(IEnumerable<CountryDto> countriesDtp)
         {
             Country countryDbModel;
-            foreach (CountryDto country in countries)
+            foreach (CountryDto countryDto in countriesDtp)
             {
-                countryDbModel = _mapper.Map<Country>(country);
+                countryDbModel = _mapper.Map<Country>(countryDto);
                 await _matchesDbContext.Countries.AddAsync(countryDbModel);
             }
             await _matchesDbContext.SaveChangesAsync();
@@ -61,9 +61,12 @@ namespace Wsei.Matches.Infrastructure.Repositories
         {
             foreach (CountryDto countryToUpdate in countriesToUpdate)
             {
-                Country mappedCountryToUpdate = _mapper.Map<Country>(countryToUpdate);
-                var countryFromDb = await _matchesDbContext.Countries.Where(country => country.Id == countryToUpdate.Id).FirstOrDefaultAsync();
-                countryFromDb.Name = mappedCountryToUpdate.Name;
+                Country countryFromDb = await _matchesDbContext.Countries.AsNoTracking().Where(match => match.Id == countryToUpdate.Id).FirstAsync();
+
+                Country updatedCountry = _mapper.Map<Country>(countryToUpdate);
+
+                countryFromDb = updatedCountry;
+                _matchesDbContext.Countries.Entry(countryFromDb).State = EntityState.Modified;
             }
             await _matchesDbContext.SaveChangesAsync();
         }

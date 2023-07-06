@@ -27,6 +27,7 @@ namespace Wsei.Matches.Infrastructure
             services.AddScoped<IRepository<CountryDto>, CountryRepository>();
             services.AddScoped<IRepository<MatchDto>, MatchRepository>();
             services.AddScoped<IRepository<LeagueDto>, LeagueRepository>();
+            services.AddScoped<IRepository<TeamDto>, TeamRepository>();
         }
 
         public void AddMapper(IServiceCollection services)

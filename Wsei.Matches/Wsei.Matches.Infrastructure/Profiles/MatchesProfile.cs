@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Wsei.Matches.Application.Dtos.Requests;
 using Wsei.Matches.Core.DbModel;
 
 namespace Wsei.Matches.Application.Dtos
@@ -12,6 +13,9 @@ namespace Wsei.Matches.Application.Dtos
             CreateMap<Match, MatchDto>().ReverseMap();
             CreateMap<Stadium, StadiumDto>().ReverseMap();
             CreateMap<Team, TeamDto>().ReverseMap();
+
+            CreateMap<LeagueDtoRequest, League>().ForPath(dest => dest.Country.Id, act => act.MapFrom(src => src.CountryId));
+            //.ForMember(dest => dest.FullName, act => act.MapFrom(src => src.Name))
         }
     }
 }

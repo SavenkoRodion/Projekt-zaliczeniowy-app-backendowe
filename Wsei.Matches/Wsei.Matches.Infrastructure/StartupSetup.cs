@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Wsei.Matches.Application.Dtos;
+using Wsei.Matches.Application.Dtos.Requests;
 using Wsei.Matches.Application.Services;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Core.Interfaces.ServiceInterfaces;
@@ -26,9 +27,9 @@ namespace Wsei.Matches.Infrastructure
         {
             services.AddScoped<IRepository<CountryDto>, CountryRepository>();
             services.AddScoped<IRepository<MatchDto>, MatchRepository>();
-            services.AddScoped<IRepository<LeagueDto>, LeagueRepository>();
             services.AddScoped<IRepository<TeamDto>, TeamRepository>();
             services.AddScoped<IRepository<StadiumDto>, StadiumRepository>();
+            services.AddScoped<IRepositoryNew<LeagueDtoRequest, LeagueDto>, LeagueRepository>();
         }
 
         public void AddMapper(IServiceCollection services)

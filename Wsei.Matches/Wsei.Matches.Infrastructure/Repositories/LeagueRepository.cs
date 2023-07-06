@@ -20,18 +20,18 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<LeagueDto>> GetAllAsync()
         {
-            IEnumerable<League> leaguesDbModel = _matchesDbContext.Leagues.ToList();
+            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues.ToList();
 
-            IEnumerable<LeagueDto> leaguesDto = _mapper.Map<IEnumerable<LeagueDto>>(leaguesDbModel);
+            IEnumerable<LeagueDto> leaguesDto = _mapper.Map<IEnumerable<LeagueDto>>(leaguesFromDb);
 
             return leaguesDto;
         }
 
         public async Task<LeagueDto?> GetByIdAsync(int id)
         {
-            IEnumerable<League> leaguesDbModel = _matchesDbContext.Leagues.ToList();
+            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues.ToList();
 
-            League? league = leaguesDbModel.Where(match => match.Id == id).FirstOrDefault();
+            League? league = leaguesFromDb.Where(match => match.Id == id).FirstOrDefault();
 
             LeagueDto leagueDto = _mapper.Map<LeagueDto>(league);
 
@@ -61,9 +61,11 @@ namespace Wsei.Matches.Infrastructure.Repositories
         {
             foreach (LeagueDto leagueToUpdate in leaguesToUpdate)
             {
-                var leagueFromDb = await _matchesDbContext.Leagues.AsNoTracking().Where(match => match.Id == leagueToUpdate.Id).FirstOrDefaultAsync();
-                League mappedLeagueToUpdate = _mapper.Map<League>(leagueToUpdate);
-                leagueFromDb = mappedLeagueToUpdate;
+                League leagueFromDb = await _matchesDbContext.Leagues.AsNoTracking().Where(match => match.Id == leagueToUpdate.Id).FirstAsync();
+
+                League updatedLeague = _mapper.Map<League>(leagueToUpdate);
+
+                leagueFromDb = updatedLeague;
                 _matchesDbContext.Leagues.Entry(leagueFromDb).State = EntityState.Modified;
             }
             await _matchesDbContext.SaveChangesAsync();

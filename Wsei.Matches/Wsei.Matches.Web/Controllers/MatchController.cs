@@ -5,10 +5,10 @@ using Wsei.Matches.Core.Interfaces;
 namespace Wsei.Matches.Web.Controllers;
 
 [ApiController]
-[Route("/matches")]
-public class MatchesController : BaseCrudController<MatchDto>
+[Route("/match")]
+public class MatchController : BaseCrudController<MatchDto>
 {
-    public MatchesController(IRepository<MatchDto> repository) : base(repository) { }
+    public MatchController(IRepository<MatchDto> repository) : base(repository) { }
 }
 
 

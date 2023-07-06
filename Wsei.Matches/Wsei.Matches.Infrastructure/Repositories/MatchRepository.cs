@@ -61,9 +61,11 @@ namespace Wsei.Matches.Infrastructure.Repositories
         {
             foreach (MatchDto matchToUpdate in matchesToUpdate)
             {
-                Match mappedMatchToUpdate = _mapper.Map<Match>(matchToUpdate);
-                var matchFromDb = await _matchesDbContext.Matches.AsNoTracking().Where(match => match.Id == matchToUpdate.Id).FirstOrDefaultAsync();
-                matchFromDb = mappedMatchToUpdate;
+                Match matchFromDb = await _matchesDbContext.Matches.AsNoTracking().Where(match => match.Id == matchToUpdate.Id).FirstAsync();
+
+                Match updatedMatch = _mapper.Map<Match>(matchToUpdate);
+
+                matchFromDb = updatedMatch;
                 _matchesDbContext.Matches.Entry(matchFromDb).State = EntityState.Modified;
             }
             await _matchesDbContext.SaveChangesAsync();

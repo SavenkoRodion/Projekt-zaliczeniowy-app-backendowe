@@ -31,7 +31,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
         {
             IEnumerable<Team> teamsFromDb = _matchesDbContext.Teams.ToList();
 
-            Team? team = teamsFromDb.Where(match => match.Id == id).FirstOrDefault();
+            Team? team = teamsFromDb.Where(team => team.Id == id).FirstOrDefault();
 
             TeamDto teamDto = _mapper.Map<TeamDto>(team);
 

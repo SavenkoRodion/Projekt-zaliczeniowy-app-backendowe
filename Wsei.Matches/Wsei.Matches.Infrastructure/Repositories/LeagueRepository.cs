@@ -31,7 +31,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
         {
             IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues.ToList();
 
-            League? league = leaguesFromDb.Where(match => match.Id == id).FirstOrDefault();
+            League? league = leaguesFromDb.Where(league => league.Id == id).FirstOrDefault();
 
             LeagueDto leagueDto = _mapper.Map<LeagueDto>(league);
 

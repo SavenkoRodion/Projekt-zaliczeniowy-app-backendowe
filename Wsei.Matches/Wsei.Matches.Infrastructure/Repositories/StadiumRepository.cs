@@ -7,7 +7,7 @@ using Wsei.Matches.Infrastructure.Contexts;
 
 namespace Wsei.Matches.Infrastructure.Repositories
 {
-    public class StadiumRepository : IRepository<TeamDto>
+    public class StadiumRepository : IRepository<StadiumDto>
     {
         private readonly MatchesDbContext _matchesDbContext;
         private readonly IMapper _mapper;
@@ -18,33 +18,33 @@ namespace Wsei.Matches.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TeamDto>> GetAllAsync()
+        public async Task<IEnumerable<StadiumDto>> GetAllAsync()
         {
-            IEnumerable<Team> teamsFromDb = _matchesDbContext.Teams.ToList();
+            IEnumerable<Stadium> stadiumsFromDb = _matchesDbContext.Stadiums.ToList();
 
-            IEnumerable<TeamDto> teamDto = _mapper.Map<IEnumerable<TeamDto>>(teamsFromDb);
+            IEnumerable<StadiumDto> stadiumDto = _mapper.Map<IEnumerable<StadiumDto>>(stadiumsFromDb);
 
-            return teamDto;
+            return stadiumDto;
         }
 
-        public async Task<TeamDto?> GetByIdAsync(int id)
+        public async Task<StadiumDto?> GetByIdAsync(int id)
         {
-            IEnumerable<Team> teamsFromDb = _matchesDbContext.Teams.ToList();
+            IEnumerable<Stadium> stadiumsFromDb = _matchesDbContext.Stadiums.ToList();
 
-            Team? team = teamsFromDb.Where(match => match.Id == id).FirstOrDefault();
+            Stadium? stadium = stadiumsFromDb.Where(stadium => stadium.Id == id).FirstOrDefault();
 
-            TeamDto teamDto = _mapper.Map<TeamDto>(team);
+            StadiumDto stadiumDto = _mapper.Map<StadiumDto>(stadium);
 
-            return teamDto;
+            return stadiumDto;
         }
 
-        public async Task AddAsync(IEnumerable<TeamDto> teams)
+        public async Task AddAsync(IEnumerable<StadiumDto> stadiums)
         {
-            Team teamsDbModel;
-            foreach (TeamDto team in teams)
+            Stadium stadiumDbModel;
+            foreach (StadiumDto stadium in stadiums)
             {
-                teamsDbModel = _mapper.Map<Team>(team);
-                await _matchesDbContext.Teams.AddAsync(teamsDbModel);
+                stadiumDbModel = _mapper.Map<Stadium>(stadium);
+                await _matchesDbContext.Stadiums.AddAsync(stadiumDbModel);
             }
             await _matchesDbContext.SaveChangesAsync();
         }
@@ -53,20 +53,20 @@ namespace Wsei.Matches.Infrastructure.Repositories
         {
             foreach (int id in ids)
             {
-                await _matchesDbContext.Teams.Where(match => match.Id == id).ExecuteDeleteAsync();
+                await _matchesDbContext.Stadiums.Where(match => match.Id == id).ExecuteDeleteAsync();
             }
         }
 
-        public async Task UpdateAsync(IEnumerable<TeamDto> teamsToUpdate)
+        public async Task UpdateAsync(IEnumerable<StadiumDto> stadiumsToUpdate)
         {
-            foreach (TeamDto teamToUpdate in teamsToUpdate)
+            foreach (StadiumDto stadiumToUpdate in stadiumsToUpdate)
             {
-                Team teamFromDb = await _matchesDbContext.Teams.AsNoTracking().Where(match => match.Id == teamToUpdate.Id).FirstAsync();
+                Stadium stadiumFromDb = await _matchesDbContext.Stadiums.AsNoTracking().Where(match => match.Id == stadiumToUpdate.Id).FirstAsync();
 
-                Team updatedTeam = _mapper.Map<Team>(teamToUpdate);
+                Stadium updatedStadium = _mapper.Map<Stadium>(stadiumToUpdate);
 
-                teamFromDb = updatedTeam;
-                _matchesDbContext.Teams.Entry(teamFromDb).State = EntityState.Modified;
+                stadiumFromDb = updatedStadium;
+                _matchesDbContext.Stadiums.Entry(stadiumFromDb).State = EntityState.Modified;
             }
             await _matchesDbContext.SaveChangesAsync();
         }

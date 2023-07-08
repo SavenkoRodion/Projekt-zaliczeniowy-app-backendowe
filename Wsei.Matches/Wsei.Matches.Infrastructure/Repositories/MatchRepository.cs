@@ -21,7 +21,17 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<MatchDtoResponse>> GetAllAsync()
         {
-            IEnumerable<Match> matchesDbModel = _matchesDbContext.Matches.ToList();
+            IEnumerable<Match> matchesDbModel = _matchesDbContext.Matches
+                .Include(match => match.HomeTeam)
+                    .ThenInclude(homeTeam => homeTeam.League)
+                        .ThenInclude(league => league.Country)
+                .Include(match => match.GuestTeam)
+                    .ThenInclude(guestTeam => guestTeam.League)
+                        .ThenInclude(league => league.Country)
+                .Include(match => match.League)
+                    .ThenInclude(league => league.Country)
+                .Include(match => match.Stadium)
+                .ToList();
 
             IEnumerable<MatchDtoResponse> matchesDto = _mapper.Map<IEnumerable<MatchDtoResponse>>(matchesDbModel);
 
@@ -30,9 +40,20 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<MatchDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<Match> matchesDbModel = _matchesDbContext.Matches.ToList();
+            IEnumerable<Match> matchesDbModel = _matchesDbContext.Matches
+                .Include(match => match.HomeTeam)
+                    .ThenInclude(homeTeam => homeTeam.League)
+                        .ThenInclude(league => league.Country)
+                .Include(match => match.GuestTeam)
+                    .ThenInclude(guestTeam => guestTeam.League)
+                        .ThenInclude(league => league.Country)
+                .Include(match => match.League)
+                    .ThenInclude(league => league.Country)
+                .Include(match => match.Stadium)
+                .ToList();
 
-            Match? match = matchesDbModel.Where(match => match.Id == id).FirstOrDefault();
+            Match? match = matchesDbModel.Where(match => match.Id == id)
+                .FirstOrDefault();
 
             MatchDtoResponse matchDto = _mapper.Map<MatchDtoResponse>(match);
 

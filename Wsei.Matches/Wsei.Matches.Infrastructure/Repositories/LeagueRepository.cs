@@ -21,7 +21,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<LeagueDtoResponse>> GetAllAsync()
         {
-            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues.Include(x => x.Country).ToList();
+            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues.Include(league => league.Country).ToList();
 
             IEnumerable<LeagueDtoResponse> leaguesDto = _mapper.Map<IEnumerable<LeagueDtoResponse>>(leaguesFromDb);
 
@@ -30,7 +30,9 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<LeagueDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues.ToList();
+            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues
+                .Include(league => league.Country)
+                .ToList();
 
             League? league = leaguesFromDb.Where(league => league.Id == id).FirstOrDefault();
 

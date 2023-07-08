@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Wsei.Matches.Application.Dtos;
+using Wsei.Matches.Application.Dtos.Requests;
+using Wsei.Matches.Application.Dtos.Responses;
 using Wsei.Matches.Core.DbModel;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Infrastructure.Contexts;
 
 namespace Wsei.Matches.Infrastructure.Repositories
 {
-    public class TeamRepository : IRepository<TeamDto>
+    public class TeamRepository : IRepository<TeamDtoRequest, TeamDtoResponse>
     {
         private readonly MatchesDbContext _matchesDbContext;
         private readonly IMapper _mapper;
@@ -18,33 +19,41 @@ namespace Wsei.Matches.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TeamDto>> GetAllAsync()
+        public async Task<IEnumerable<TeamDtoResponse>> GetAllAsync()
         {
-            IEnumerable<Team> teamsFromDb = _matchesDbContext.Teams.ToList();
+            IEnumerable<Team> teamsFromDb = _matchesDbContext.Teams
+                .Include(x => x.League)
+                    .ThenInclude(league => league.Country)
+                .ToList();
 
-            IEnumerable<TeamDto> teamDto = _mapper.Map<IEnumerable<TeamDto>>(teamsFromDb);
+            IEnumerable<TeamDtoResponse> teamDto = _mapper.Map<IEnumerable<TeamDtoResponse>>(teamsFromDb);
 
             return teamDto;
         }
 
-        public async Task<TeamDto?> GetByIdAsync(int id)
+        public async Task<TeamDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<Team> teamsFromDb = _matchesDbContext.Teams.ToList();
+            IEnumerable<Team> teamsFromDb = _matchesDbContext.Teams
+                .Include(team => team.League)
+                    .ThenInclude(league => league.Country)
+                .ToList();
 
             Team? team = teamsFromDb.Where(team => team.Id == id).FirstOrDefault();
 
-            TeamDto teamDto = _mapper.Map<TeamDto>(team);
+            TeamDtoResponse teamDto = _mapper.Map<TeamDtoResponse>(team);
 
             return teamDto;
         }
 
-        public async Task AddAsync(IEnumerable<TeamDto> teams)
+        public async Task AddAsync(IEnumerable<TeamDtoRequest> teams)
         {
             Team teamsDbModel;
-            foreach (TeamDto team in teams)
+            foreach (TeamDtoRequest team in teams)
             {
                 teamsDbModel = _mapper.Map<Team>(team);
-                await _matchesDbContext.Teams.AddAsync(teamsDbModel);
+
+                _matchesDbContext.Teams.Attach(teamsDbModel);
+                _matchesDbContext.Teams.Entry(teamsDbModel).State = EntityState.Added;
             }
             await _matchesDbContext.SaveChangesAsync();
         }
@@ -57,9 +66,9 @@ namespace Wsei.Matches.Infrastructure.Repositories
             }
         }
 
-        public async Task UpdateAsync(IEnumerable<TeamDto> teamsToUpdate)
+        public async Task UpdateAsync(IEnumerable<TeamDtoRequest> teamsToUpdate)
         {
-            foreach (TeamDto teamToUpdate in teamsToUpdate)
+            foreach (TeamDtoRequest teamToUpdate in teamsToUpdate)
             {
                 Team teamFromDb = await _matchesDbContext.Teams.AsNoTracking().Where(match => match.Id == teamToUpdate.Id).FirstAsync();
 

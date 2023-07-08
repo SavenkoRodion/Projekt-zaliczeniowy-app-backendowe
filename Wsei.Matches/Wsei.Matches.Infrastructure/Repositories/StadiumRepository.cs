@@ -7,7 +7,7 @@ using Wsei.Matches.Infrastructure.Contexts;
 
 namespace Wsei.Matches.Infrastructure.Repositories
 {
-    public class StadiumRepository : IRepository<StadiumDto>
+    public class StadiumRepository : IRepository<StadiumDto, StadiumDto>
     {
         private readonly MatchesDbContext _matchesDbContext;
         private readonly IMapper _mapper;

@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Wsei.Matches.Core\Wsei.Matches.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Responses\" />
-  </ItemGroup>
-
 </Project>

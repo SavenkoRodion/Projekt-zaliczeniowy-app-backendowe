@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Wsei.Matches.Application.Dtos;
 using Wsei.Matches.Application.Dtos.Requests;
+using Wsei.Matches.Application.Dtos.Responses;
 using Wsei.Matches.Core.Interfaces;
 
 namespace Wsei.Matches.Web.Controllers;
@@ -9,20 +9,20 @@ namespace Wsei.Matches.Web.Controllers;
 [Route("/league")]
 public class LeagueController : Controller
 {
-    protected readonly IRepositoryNew<LeagueDtoRequest, LeagueDto> _repository;
-    public LeagueController(IRepositoryNew<LeagueDtoRequest, LeagueDto> repository)
+    protected readonly IRepository<LeagueDtoRequest, LeagueDtoResponse> _repository;
+    public LeagueController(IRepository<LeagueDtoRequest, LeagueDtoResponse> repository)
     {
         _repository = repository;
     }
 
     [HttpGet("all")]
-    public async Task<IEnumerable<LeagueDto>> GetAllAsync()
+    public async Task<IEnumerable<LeagueDtoResponse>> GetAllAsync()
     {
         return await _repository.GetAllAsync();
     }
 
     [HttpGet("{id}")]
-    public async Task<LeagueDto> GetByIdAsync(int id)
+    public async Task<LeagueDtoResponse> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id) ?? throw new Exception();
     }

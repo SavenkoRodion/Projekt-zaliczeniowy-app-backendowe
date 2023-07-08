@@ -6,9 +6,9 @@ namespace Wsei.Matches.Web.Controllers;
 
 [ApiController]
 [Route("/stadium")]
-public class StadiumController : BaseCrudController<StadiumDto>
+public class StadiumController : BaseCrudController<StadiumDto, StadiumDto>
 {
-    public StadiumController(IRepository<StadiumDto> repository) : base(repository) { }
+    public StadiumController(IRepository<StadiumDto, StadiumDto> repository) : base(repository) { }
 }
 
 

@@ -7,7 +7,7 @@ using Wsei.Matches.Infrastructure.Contexts;
 
 namespace Wsei.Matches.Infrastructure.Repositories
 {
-    public class CountryRepository : IRepository<CountryDto>
+    public class CountryRepository : IRepository<CountryDto, CountryDto>
     {
         private readonly MatchesDbContext _matchesDbContext;
         private readonly IMapper _mapper;

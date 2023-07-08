@@ -2,22 +2,22 @@
 using Wsei.Matches.Core.Interfaces;
 
 namespace Wsei.Matches.Web.Controllers;
-public class BaseCrudController<T> : Controller
+public class BaseCrudController<Request, Response> : Controller
 {
-    protected readonly IRepository<T> _repository;
-    public BaseCrudController(IRepository<T> repository)
+    protected readonly IRepository<Request, Response> _repository;
+    public BaseCrudController(IRepository<Request, Response> repository)
     {
         _repository = repository;
     }
 
     [HttpGet("all")]
-    public virtual async Task<IEnumerable<T>> GetAllAsync()
+    public virtual async Task<IEnumerable<Response>> GetAllAsync()
     {
         return await _repository.GetAllAsync();
     }
 
     [HttpGet("{id}")]
-    public virtual async Task<T> GetByIdAsync(int id)
+    public virtual async Task<Response> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id) ?? throw new Exception();
     }
@@ -30,14 +30,14 @@ public class BaseCrudController<T> : Controller
     }
 
     [HttpPost("add")]
-    public virtual async Task<bool> Add([FromBody] IEnumerable<T> countries)
+    public virtual async Task<bool> Add([FromBody] IEnumerable<Request> countries)
     {
         await _repository.AddAsync(countries);
         return true;
     }
 
     [HttpPut("update")]
-    public virtual async Task<bool> Update([FromBody] IEnumerable<T> countries)
+    public virtual async Task<bool> Update([FromBody] IEnumerable<Request> countries)
     {
         await _repository.UpdateAsync(countries);
         return true;

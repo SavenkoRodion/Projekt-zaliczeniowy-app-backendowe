@@ -21,38 +21,18 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<MatchDtoResponse>> GetAllAsync()
         {
-            IEnumerable<Match> matchesDbModel = _matchesDbContext.Matches
-                .Include(match => match.HomeTeam)
-                    .ThenInclude(homeTeam => homeTeam.League)
-                        .ThenInclude(league => league.Country)
-                .Include(match => match.GuestTeam)
-                    .ThenInclude(guestTeam => guestTeam.League)
-                        .ThenInclude(league => league.Country)
-                .Include(match => match.League)
-                    .ThenInclude(league => league.Country)
-                .Include(match => match.Stadium)
-                .ToList();
+            IEnumerable<Match> allMatchesFromDb = GetAllMatchesFromDb();
 
-            IEnumerable<MatchDtoResponse> matchesDto = _mapper.Map<IEnumerable<MatchDtoResponse>>(matchesDbModel);
+            IEnumerable<MatchDtoResponse> matchesDto = _mapper.Map<IEnumerable<MatchDtoResponse>>(allMatchesFromDb);
 
             return matchesDto;
         }
 
         public async Task<MatchDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<Match> matchesDbModel = _matchesDbContext.Matches
-                .Include(match => match.HomeTeam)
-                    .ThenInclude(homeTeam => homeTeam.League)
-                        .ThenInclude(league => league.Country)
-                .Include(match => match.GuestTeam)
-                    .ThenInclude(guestTeam => guestTeam.League)
-                        .ThenInclude(league => league.Country)
-                .Include(match => match.League)
-                    .ThenInclude(league => league.Country)
-                .Include(match => match.Stadium)
-                .ToList();
+            IEnumerable<Match> allMatchesFromDb = GetAllMatchesFromDb();
 
-            Match? match = matchesDbModel.Where(match => match.Id == id)
+            Match? match = allMatchesFromDb.Where(match => match.Id == id)
                 .FirstOrDefault();
 
             MatchDtoResponse matchDto = _mapper.Map<MatchDtoResponse>(match);
@@ -93,6 +73,23 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 _matchesDbContext.Matches.Entry(matchFromDb).State = EntityState.Modified;
             }
             await _matchesDbContext.SaveChangesAsync();
+        }
+
+        private IEnumerable<Match> GetAllMatchesFromDb()
+        {
+            return _matchesDbContext.Matches
+                .Include(match => match.HomeTeam)
+                    .ThenInclude(homeTeam => homeTeam.League)
+                        .ThenInclude(league => league.Country)
+
+                .Include(match => match.GuestTeam)
+                    .ThenInclude(guestTeam => guestTeam.League)
+                        .ThenInclude(league => league.Country)
+
+                .Include(match => match.League)
+                    .ThenInclude(league => league.Country)
+
+                .Include(match => match.Stadium).ToList();
         }
     }
 }

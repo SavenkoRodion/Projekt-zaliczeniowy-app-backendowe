@@ -42,7 +42,7 @@ public class LeagueController : Controller
     }
 
     [HttpPut("update")]
-    public virtual async Task<bool> Update([FromBody] IEnumerable<LeagueDtoRequest> countries)
+    public async Task<bool> Update([FromBody] IEnumerable<LeagueDtoRequest> countries)
     {
         await _repository.UpdateAsync(countries);
         return true;

@@ -66,7 +66,9 @@ namespace Wsei.Matches.Infrastructure.Repositories
             foreach (MatchDtoRequest match in matches)
             {
                 matchDbModel = _mapper.Map<Match>(match);
-                await _matchesDbContext.Matches.AddAsync(matchDbModel);
+
+                _matchesDbContext.Matches.Attach(matchDbModel);
+                _matchesDbContext.Matches.Entry(matchDbModel).State = EntityState.Added;
             }
             await _matchesDbContext.SaveChangesAsync();
         }

@@ -48,9 +48,6 @@ namespace Wsei.Matches.Infrastructure.Repositories
             {
                 leaguesDbModel = _mapper.Map<League>(league);
 
-                /*                var id = league.CountryId;
-                                leaguesDbModel.Country = _matchesDbContext.Countries.SingleOrDefault(o => o.Id == id);*/
-
                 _matchesDbContext.Leagues.Attach(leaguesDbModel);
                 _matchesDbContext.Leagues.Entry(leaguesDbModel).State = EntityState.Added;
             }

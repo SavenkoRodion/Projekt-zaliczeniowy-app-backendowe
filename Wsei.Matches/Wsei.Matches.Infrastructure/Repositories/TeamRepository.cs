@@ -51,7 +51,9 @@ namespace Wsei.Matches.Infrastructure.Repositories
             foreach (TeamDtoRequest team in teams)
             {
                 teamsDbModel = _mapper.Map<Team>(team);
-                await _matchesDbContext.Teams.AddAsync(teamsDbModel);
+
+                _matchesDbContext.Teams.Attach(teamsDbModel);
+                _matchesDbContext.Teams.Entry(teamsDbModel).State = EntityState.Added;
             }
             await _matchesDbContext.SaveChangesAsync();
         }

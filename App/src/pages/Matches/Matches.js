@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
 
 const Matches = () => {
   const [matches, setMatches] = useState([]);
@@ -13,9 +15,10 @@ const Matches = () => {
         setMatches(data);
         console.log(matches);
         console.log(matches.length);
-        matches.forEach((match) =>
-          console.log(match.homeTeam.name + "-" + match.homeTeam.name)
-        );
+        matches.forEach((match) => {
+          console.log(match.homeTeam.name + "-" + match.homeTeam.name);
+          console.log(Date.UTC(match.matchDate));
+        });
       });
   };
 
@@ -25,15 +28,18 @@ const Matches = () => {
 
   return (
     <div>
-      lolek
       {matches.length > 0 && (
-        <ul>
+        <ListGroup>
           {matches.map((match) => (
-            <li>
-              {match.homeTeam.name} - {match.guestTeam.name}
-            </li>
+            <ListGroupItem>
+              {new Date(match.matchDate).getMonth()}.
+              {new Date(match.matchDate).getDay()}{" "}
+              {new Date(match.matchDate).getHours()}:
+              {new Date(match.matchDate).getMinutes()} | {match.homeTeam.name} -{" "}
+              {match.guestTeam.name}
+            </ListGroupItem>
           ))}
-        </ul>
+        </ListGroup>
       )}
     </div>
   );

@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 StartupSetup.AddDbContexts(builder.Services, "name=ConnectionStrings:TeamRatingsDb");
+StartupSetup.AddRepositoriesToInterfaces(builder.Services);
 
 var app = builder.Build();
 

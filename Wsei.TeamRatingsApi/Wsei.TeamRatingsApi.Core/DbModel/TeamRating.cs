@@ -1,6 +1,6 @@
 ﻿namespace Wsei.TeamRatingsApi.Core.DbModel
 {
-    public class RatedTeam
+    public class TeamRating
     {
         public int Id { get; set; }
         public string Name { get; set; }

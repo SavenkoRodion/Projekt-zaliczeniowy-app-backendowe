@@ -9,6 +9,6 @@ namespace Wsei.TeamRatingsApi.Infrastructure
         {
         }
 
-        public DbSet<RatedTeam> RatedTeams { get; set; }
+        public DbSet<TeamRating> RatedTeams { get; set; }
     }
 }

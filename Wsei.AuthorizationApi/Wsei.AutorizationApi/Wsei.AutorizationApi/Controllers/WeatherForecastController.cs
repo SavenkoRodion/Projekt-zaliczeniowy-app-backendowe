@@ -24,7 +24,7 @@ namespace Wsei.AutorizationApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "GetWeatherForecast"), Authorize(Roles = "Admin")]
         [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {

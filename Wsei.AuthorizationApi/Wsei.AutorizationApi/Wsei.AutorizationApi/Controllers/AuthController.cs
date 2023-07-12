@@ -56,30 +56,25 @@ namespace Wsei.AutorizationApi.Controllers
 
         private string CreateToken(User user)
         {
-            var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.Name, user.Username),
-        new Claim(ClaimTypes.Role, "Admin")
-    };
-
-            // Generate a secure key of sufficient length
-            var keyBytes = new byte[64];
-            using (var rng = RandomNumberGenerator.Create())
+            List<Claim> claims = new List<Claim>
             {
-                rng.GetBytes(keyBytes);
-            }
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, "Admin")
+            };
 
-            var key = new SymmetricSecurityKey(keyBytes);
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:Token").Value));
 
-            var tokenOptions = new JwtSecurityToken(
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
                 claims: claims,
                 expires: DateTime.Now.AddDays(1),
-                signingCredentials: creds
-            );
+                signingCredentials: creds);
 
-            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-            return token;
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

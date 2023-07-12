@@ -19,11 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Wsei.Matches.Application\Wsei.Matches.Application.csproj" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\Wsei.Matches.Core\Wsei.Matches.Core.csproj" />
   </ItemGroup>
 
 </Project>

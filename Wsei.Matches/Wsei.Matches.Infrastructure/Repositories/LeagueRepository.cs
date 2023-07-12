@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Wsei.Matches.Application.Dtos;
+using Wsei.Matches.Application.Dtos.Requests;
+using Wsei.Matches.Application.Dtos.Responses;
 using Wsei.Matches.Core.DbModel;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Infrastructure.Contexts;
 
 namespace Wsei.Matches.Infrastructure.Repositories
 {
-    public class LeagueRepository : IRepository<LeagueDto>
+    public class LeagueRepository : IRepository<LeagueDtoRequest, LeagueDtoResponse>
     {
         private readonly MatchesDbContext _matchesDbContext;
         private readonly IMapper _mapper;
@@ -18,33 +19,37 @@ namespace Wsei.Matches.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<LeagueDto>> GetAllAsync()
+        public async Task<IEnumerable<LeagueDtoResponse>> GetAllAsync()
         {
-            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues.ToList();
+            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues.Include(league => league.Country).ToList();
 
-            IEnumerable<LeagueDto> leaguesDto = _mapper.Map<IEnumerable<LeagueDto>>(leaguesFromDb);
+            IEnumerable<LeagueDtoResponse> leaguesDto = _mapper.Map<IEnumerable<LeagueDtoResponse>>(leaguesFromDb);
 
             return leaguesDto;
         }
 
-        public async Task<LeagueDto?> GetByIdAsync(int id)
+        public async Task<LeagueDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues.ToList();
+            IEnumerable<League> leaguesFromDb = _matchesDbContext.Leagues
+                .Include(league => league.Country)
+                .ToList();
 
-            League? league = leaguesFromDb.Where(match => match.Id == id).FirstOrDefault();
+            League? league = leaguesFromDb.Where(league => league.Id == id).FirstOrDefault();
 
-            LeagueDto leagueDto = _mapper.Map<LeagueDto>(league);
+            LeagueDtoResponse leagueDto = _mapper.Map<LeagueDtoResponse>(league);
 
             return leagueDto;
         }
 
-        public async Task AddAsync(IEnumerable<LeagueDto> leagues)
+        public async Task AddAsync(IEnumerable<LeagueDtoRequest> leagues)
         {
             League leaguesDbModel;
-            foreach (LeagueDto league in leagues)
+            foreach (LeagueDtoRequest league in leagues)
             {
                 leaguesDbModel = _mapper.Map<League>(league);
-                await _matchesDbContext.Leagues.AddAsync(leaguesDbModel);
+
+                _matchesDbContext.Leagues.Attach(leaguesDbModel);
+                _matchesDbContext.Leagues.Entry(leaguesDbModel).State = EntityState.Added;
             }
             await _matchesDbContext.SaveChangesAsync();
         }
@@ -57,9 +62,9 @@ namespace Wsei.Matches.Infrastructure.Repositories
             }
         }
 
-        public async Task UpdateAsync(IEnumerable<LeagueDto> leaguesToUpdate)
+        public async Task UpdateAsync(IEnumerable<LeagueDtoRequest> leaguesToUpdate)
         {
-            foreach (LeagueDto leagueToUpdate in leaguesToUpdate)
+            foreach (LeagueDtoRequest leagueToUpdate in leaguesToUpdate)
             {
                 League leagueFromDb = await _matchesDbContext.Leagues.AsNoTracking().Where(match => match.Id == leagueToUpdate.Id).FirstAsync();
 

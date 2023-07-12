@@ -1,4 +1,4 @@
-﻿namespace Wsei.Matches.Core.Interfaces
+﻿namespace Wsei.TeamRatingsApi.Core.Interfaces
 {
     public interface IRepository<Request, Response>
     {
@@ -6,6 +6,6 @@
         public Task<Response?> GetByIdAsync(int id);
         public Task DeleteAsync(IEnumerable<int> ids);
         public Task AddAsync(IEnumerable<Request> objs);
-        public Task UpdateAsync(IEnumerable<Request> objToUpdate);
+        public Task ReplaceAsync(IEnumerable<Request> objToUpdate);
     }
 }

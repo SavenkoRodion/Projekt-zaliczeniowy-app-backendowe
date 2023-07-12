@@ -6,7 +6,7 @@ namespace Wsei.Matches.Web.Controllers;
 
 [ApiController]
 [Route("/country")]
-public class CountryController : BaseCrudController<CountryDto>
+public class CountryController : BaseCrudController<CountryDto, CountryDto>
 {
-    public CountryController(IRepository<CountryDto> repository) : base(repository) { }
+    public CountryController(IRepository<CountryDto, CountryDto> repository) : base(repository) { }
 }

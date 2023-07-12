@@ -1,6 +1,6 @@
-﻿namespace Wsei.Matches.Application.Dtos
+﻿namespace Wsei.Matches.Application.Dtos.Responses
 {
-    public class LeagueDto
+    public class LeagueDtoResponse
     {
         public int Id { get; set; }
         public string Name { get; set; }

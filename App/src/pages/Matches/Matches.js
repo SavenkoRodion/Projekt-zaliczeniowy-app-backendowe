@@ -1,35 +1,54 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
+import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
 
 const Matches = () => {
-  const [users, setUsers] = useState([])
+  const [matches, setMatches] = useState([]);
 
   const fetchUserData = () => {
-    fetch("https://localhost:7185/matches/all")
-      .then(response => {
-        console.log(response)
-        return response.json()
+    fetch("https://localhost:7185/match/all")
+      .then((response) => {
+        console.log(response);
+        return response.json();
       })
-      .then(data => {
-        setUsers(data)
-      })
-  }
+      .then((data) => {
+        setMatches(data);
+        console.log(matches);
+        console.log(matches.length);
+        matches.forEach((match) => {
+          console.log(match.homeTeam.name + "-" + match.homeTeam.name);
+          console.log(Date.UTC(match.matchDate));
+        });
+      });
+  };
 
   useEffect(() => {
-    fetchUserData()
-  }, [])
+    fetchUserData();
+  }, []);
 
   return (
     <div>
-      lolek
-      {users.length > 0 && (
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>{user.name}</li>
+      {matches.length > 0 && (
+        <ListGroup>
+          {matches.map((match) => (
+            <ListGroupItem>
+              {new Date(match.matchDate).getMonth()}.
+              {new Date(match.matchDate).getDay()}{" "}
+              {new Date(match.matchDate).getHours()}:
+              {new Date(match.matchDate).getMinutes()} | {match.homeTeam.name} -{" "}
+              {match.guestTeam.name}
+            </ListGroupItem>
           ))}
-        </ul>
+        </ListGroup>
       )}
     </div>
   );
-}
+};
 
 export default Matches;
+
+// {matches.forEach((match) => (
+//   <li key={match.id}>
+//     {match.homeTeam.name} {match.homeTeam.name}
+//   </li>
+// ))}

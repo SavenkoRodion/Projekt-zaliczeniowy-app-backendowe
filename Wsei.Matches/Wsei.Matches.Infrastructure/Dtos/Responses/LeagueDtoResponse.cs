@@ -1,4 +1,4 @@
-﻿namespace Wsei.Matches.Application.Dtos.Responses
+﻿namespace Wsei.Matches.Infrastructure.Dtos.Responses
 {
     public class LeagueDtoResponse
     {

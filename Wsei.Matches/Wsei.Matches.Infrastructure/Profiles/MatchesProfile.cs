@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using Wsei.Matches.Application.Dtos.Requests;
-using Wsei.Matches.Application.Dtos.Responses;
 using Wsei.Matches.Core.DbModel;
+using Wsei.Matches.Infrastructure.Dtos;
+using Wsei.Matches.Infrastructure.Dtos.Requests;
+using Wsei.Matches.Infrastructure.Dtos.Responses;
 
-namespace Wsei.Matches.Application.Dtos
+namespace Wsei.Matches.Infrastructure.Profiles
 {
     public class MatchesProfile : Profile
     {
@@ -11,7 +12,10 @@ namespace Wsei.Matches.Application.Dtos
         {
             CreateMap<Country, CountryDto>().ReverseMap();
             CreateMap<League, LeagueDtoResponse>().ReverseMap();
-            CreateMap<Match, MatchDtoResponse>().ReverseMap();
+            CreateMap<Match, MatchDtoResponse>()
+                .ForPath(dest => dest.HomeTeamWinRate,
+                    act => act.Ignore())
+                .ReverseMap();
             CreateMap<Stadium, StadiumDto>().ReverseMap();
             CreateMap<Team, TeamDtoResponse>().ReverseMap();
 

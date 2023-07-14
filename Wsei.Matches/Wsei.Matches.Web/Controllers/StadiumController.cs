@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Wsei.Matches.Application.Dtos;
 using Wsei.Matches.Core.Interfaces;
+using Wsei.Matches.Infrastructure.Dtos;
 
 namespace Wsei.Matches.Web.Controllers;
 

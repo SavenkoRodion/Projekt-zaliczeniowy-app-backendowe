@@ -9,17 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TeamRatingsApi", "TeamRatin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.Matches.Core", "Wsei.Matches\Wsei.Matches.Core\Wsei.Matches.Core.csproj", "{B341B423-706A-444D-820C-F9C2ECAD518B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.Matches.Application", "Wsei.Matches\Wsei.Matches.Application\Wsei.Matches.Application.csproj", "{5A828396-BF4F-490D-8302-5F62295C292E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.Matches.Web", "Wsei.Matches\Wsei.Matches.Web\Wsei.Matches.Web.csproj", "{E29E763B-4663-4BC5-AFD9-DD50D5CF87CB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.Matches.Infrastructure", "Wsei.Matches\Wsei.Matches.Infrastructure\Wsei.Matches.Infrastructure.csproj", "{54894C37-217C-4115-AB49-5AC5E1D8C187}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsei.TeamRatingsApi.Core", "Wsei.TeamRatingsApi\Wsei.TeamRatingsApi.Core\Wsei.TeamRatingsApi.Core.csproj", "{70763184-117A-4ECC-87AC-00F597D7EB4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.TeamRatingsApi.Core", "Wsei.TeamRatingsApi\Wsei.TeamRatingsApi.Core\Wsei.TeamRatingsApi.Core.csproj", "{70763184-117A-4ECC-87AC-00F597D7EB4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsei.TeamRatingsApi.Infrastructure", "Wsei.TeamRatingsApi\Wsei.TeamRatingsApi.Infrastructure\Wsei.TeamRatingsApi.Infrastructure.csproj", "{B9DDB84D-FBD5-44F2-8DB6-68BB8F93E6E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.TeamRatingsApi.Infrastructure", "Wsei.TeamRatingsApi\Wsei.TeamRatingsApi.Infrastructure\Wsei.TeamRatingsApi.Infrastructure.csproj", "{B9DDB84D-FBD5-44F2-8DB6-68BB8F93E6E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wsei.TeamRatingsApi.Web", "Wsei.TeamRatingsApi\Wsei.TeamRatingsApi.Web\Wsei.TeamRatingsApi.Web.csproj", "{B3C7C5F6-45B0-471D-A1D2-6AAE3BF8AFEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.TeamRatingsApi.Web", "Wsei.TeamRatingsApi\Wsei.TeamRatingsApi.Web\Wsei.TeamRatingsApi.Web.csproj", "{B3C7C5F6-45B0-471D-A1D2-6AAE3BF8AFEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		{B341B423-706A-444D-820C-F9C2ECAD518B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B341B423-706A-444D-820C-F9C2ECAD518B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B341B423-706A-444D-820C-F9C2ECAD518B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A828396-BF4F-490D-8302-5F62295C292E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A828396-BF4F-490D-8302-5F62295C292E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A828396-BF4F-490D-8302-5F62295C292E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A828396-BF4F-490D-8302-5F62295C292E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E29E763B-4663-4BC5-AFD9-DD50D5CF87CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E29E763B-4663-4BC5-AFD9-DD50D5CF87CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E29E763B-4663-4BC5-AFD9-DD50D5CF87CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,7 +55,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B341B423-706A-444D-820C-F9C2ECAD518B} = {4601E7DE-BAC5-4517-9E42-AC5A0BE1780D}
-		{5A828396-BF4F-490D-8302-5F62295C292E} = {4601E7DE-BAC5-4517-9E42-AC5A0BE1780D}
 		{E29E763B-4663-4BC5-AFD9-DD50D5CF87CB} = {4601E7DE-BAC5-4517-9E42-AC5A0BE1780D}
 		{54894C37-217C-4115-AB49-5AC5E1D8C187} = {4601E7DE-BAC5-4517-9E42-AC5A0BE1780D}
 		{70763184-117A-4ECC-87AC-00F597D7EB4E} = {16DB9185-1D50-4DB2-9CC0-1D6D03101F05}

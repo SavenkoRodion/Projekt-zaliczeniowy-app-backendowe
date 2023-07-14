@@ -1,6 +1,6 @@
-﻿namespace Wsei.Matches.Application.Dtos.Responses
+﻿namespace Wsei.Matches.Infrastructure.Dtos.Responses
 {
-    public class MatchDtoResponse
+    public record MatchDtoResponse
     {
         public int? Id { get; set; }
         public TeamDtoResponse? HomeTeam { get; set; }
@@ -9,5 +9,6 @@
         public StadiumDto? Stadium { get; set; }
         public DateTime? MatchDate { get; set; }
         public float? TicketPrice { get; set; }
+        public float? HomeTeamWinRate { get; set; }
     }
 }

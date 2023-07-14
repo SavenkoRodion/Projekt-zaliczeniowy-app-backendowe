@@ -8,39 +8,45 @@ namespace Wsei.TeamRatingsApi.Web.Controllers;
 [Route("/teamRating")]
 public class TeamRatingController : Controller
 {
-    protected readonly IRepository<TeamRatingDto, TeamRatingDto> _teamRatingRepository;
-    public TeamRatingController(IRepository<TeamRatingDto, TeamRatingDto> repository)
+    protected readonly ITeamRatingRepository<TeamRatingDto, TeamRatingDto> _teamRatingRepository;
+    public TeamRatingController(ITeamRatingRepository<TeamRatingDto, TeamRatingDto> repository)
     {
         _teamRatingRepository = repository;
     }
 
-    [HttpGet("all")]
+    [HttpGet]
     public async Task<IEnumerable<TeamRatingDto>> GetAllAsync()
     {
         return await _teamRatingRepository.GetAllAsync();
     }
 
-    [HttpGet("{id}")]
-    public async Task<TeamRatingDto> GetByIdAsync(int id)
+    [HttpGet("byId/{id}")]
+    public async Task<TeamRatingDto?> GetByIdAsync(int id)
     {
-        return await _teamRatingRepository.GetByIdAsync(id) ?? throw new Exception();
+        return await _teamRatingRepository.GetByIdAsync(id);
     }
 
-    [HttpDelete("delete")]
+    [HttpGet("byTeamName/{teamName}")]
+    public async Task<TeamRatingDto?> GetByTeamNameAsync(string teamName)
+    {
+        return await _teamRatingRepository.GetByNameAsync(teamName);
+    }
+
+    [HttpDelete]
     public async Task<bool> DeleteByIdAsync([FromBody] IEnumerable<int> id)
     {
         await _teamRatingRepository.DeleteAsync(id);
         return true;
     }
 
-    [HttpPost("add")]
+    [HttpPost]
     public async Task<bool> Add([FromBody] IEnumerable<TeamRatingDto> countries)
     {
         await _teamRatingRepository.AddAsync(countries);
         return true;
     }
 
-    [HttpPut("replace")]
+    [HttpPut]
     public async Task<bool> Replace([FromBody] IEnumerable<TeamRatingDto> countries)
     {
         await _teamRatingRepository.ReplaceAsync(countries);

@@ -15,7 +15,7 @@ namespace Wsei.TeamRatingsApi.Infrastructure
         }
         public static void AddRepositoriesToInterfaces(IServiceCollection services)
         {
-            services.AddScoped<IRepository<TeamRatingDto, TeamRatingDto>, TeamRatingsRepository>();
+            services.AddScoped<ITeamRatingRepository<TeamRatingDto, TeamRatingDto>, TeamRatingsRepository>();
         }
     }
 }

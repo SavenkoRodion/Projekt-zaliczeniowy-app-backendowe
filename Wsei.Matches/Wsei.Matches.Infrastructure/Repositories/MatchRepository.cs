@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Wsei.Matches.Application.Dtos.Requests;
-using Wsei.Matches.Application.Dtos.Responses;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Infrastructure.Contexts;
+using Wsei.Matches.Infrastructure.Dtos.Requests;
+using Wsei.Matches.Infrastructure.Dtos.Responses;
+using Wsei.Matches.Infrastructure.Services;
 using Match = Wsei.Matches.Core.DbModel.Match;
 
 namespace Wsei.Matches.Infrastructure.Repositories
@@ -12,11 +13,13 @@ namespace Wsei.Matches.Infrastructure.Repositories
     {
         private readonly MatchesDbContext _matchesDbContext;
         private readonly IMapper _mapper;
+        private readonly IMatchService _matchService;
 
-        public MatchRepository(MatchesDbContext matchesDbContext, IMapper mapper)
+        public MatchRepository(MatchesDbContext matchesDbContext, IMapper mapper, IMatchService matchService)
         {
             _matchesDbContext = matchesDbContext;
             _mapper = mapper;
+            _matchService = matchService;
         }
 
         public async Task<IEnumerable<MatchDtoResponse>> GetAllAsync()
@@ -36,6 +39,8 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 .FirstOrDefault();
 
             MatchDtoResponse matchDto = _mapper.Map<MatchDtoResponse>(match);
+
+            MatchDtoResponse matchDtoWithWinRate = await _matchService.SetWinrateChanseAsync(matchDto);
 
             return matchDto;
         }

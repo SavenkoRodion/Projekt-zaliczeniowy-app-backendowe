@@ -5,7 +5,7 @@ using Wsei.TeamRatingsApi.Infrastructure.Dtos;
 
 namespace Wsei.TeamRatingsApi.Infrastructure.Repositories
 {
-    public class TeamRatingsRepository : IRepository<TeamRatingDto, TeamRatingDto>
+    public class TeamRatingsRepository : ITeamRatingRepository<TeamRatingDto, TeamRatingDto>
     {
         private readonly TeamRatingsDbContext _teamRatingsDbContext;
 
@@ -28,6 +28,17 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Repositories
             IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
 
             TeamRating? ratedTeamFromDb = ratedTeamsFromDb.Where(team => team.Id == id).FirstOrDefault();
+
+            TeamRatingDto ratedTeamDto = CustomMapper.Map(ratedTeamFromDb);
+
+            return ratedTeamDto;
+        }
+
+        public async Task<TeamRatingDto?> GetByTeamNameAsync(string teamName)
+        {
+            IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
+
+            TeamRating? ratedTeamFromDb = ratedTeamsFromDb.Where(team => team.Name == teamName).FirstOrDefault();
 
             TeamRatingDto ratedTeamDto = CustomMapper.Map(ratedTeamFromDb);
 

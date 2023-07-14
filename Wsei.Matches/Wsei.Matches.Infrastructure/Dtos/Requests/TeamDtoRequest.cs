@@ -1,4 +1,4 @@
-﻿namespace Wsei.Matches.Application.Dtos.Requests
+﻿namespace Wsei.Matches.Infrastructure.Dtos.Requests
 {
     public class TeamDtoRequest
     {

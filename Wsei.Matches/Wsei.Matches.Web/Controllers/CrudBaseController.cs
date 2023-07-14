@@ -10,7 +10,7 @@ public class BaseCrudController<Request, Response> : Controller
         _repository = repository;
     }
 
-    [HttpGet("all")]
+    [HttpGet]
     public virtual async Task<IEnumerable<Response>> GetAllAsync()
     {
         return await _repository.GetAllAsync();
@@ -22,21 +22,21 @@ public class BaseCrudController<Request, Response> : Controller
         return await _repository.GetByIdAsync(id) ?? throw new Exception();
     }
 
-    [HttpDelete("delete")]
+    [HttpDelete]
     public virtual async Task<bool> DeleteByIdAsync([FromBody] IEnumerable<int> id)
     {
         await _repository.DeleteAsync(id);
         return true;
     }
 
-    [HttpPost("add")]
+    [HttpPost]
     public virtual async Task<bool> Add([FromBody] IEnumerable<Request> countries)
     {
         await _repository.AddAsync(countries);
         return true;
     }
 
-    [HttpPut("update")]
+    [HttpPut]
     public virtual async Task<bool> Update([FromBody] IEnumerable<Request> countries)
     {
         await _repository.UpdateAsync(countries);

@@ -1,4 +1,4 @@
-﻿namespace Wsei.Matches.Application.Dtos
+﻿namespace Wsei.Matches.Infrastructure.Dtos
 {
     public class CountryDto
     {

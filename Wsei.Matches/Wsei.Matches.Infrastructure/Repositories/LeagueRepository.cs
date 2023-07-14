@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Wsei.Matches.Application.Dtos.Requests;
-using Wsei.Matches.Application.Dtos.Responses;
 using Wsei.Matches.Core.DbModel;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Infrastructure.Contexts;
+using Wsei.Matches.Infrastructure.Dtos.Requests;
+using Wsei.Matches.Infrastructure.Dtos.Responses;
 
 namespace Wsei.Matches.Infrastructure.Repositories
 {

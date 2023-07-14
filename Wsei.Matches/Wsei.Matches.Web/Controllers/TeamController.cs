@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Wsei.Matches.Application.Dtos.Requests;
-using Wsei.Matches.Application.Dtos.Responses;
 using Wsei.Matches.Core.Interfaces;
+using Wsei.Matches.Infrastructure.Dtos.Requests;
+using Wsei.Matches.Infrastructure.Dtos.Responses;
 
 namespace Wsei.Matches.Web.Controllers;
 

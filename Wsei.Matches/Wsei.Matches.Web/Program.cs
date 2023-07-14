@@ -1,4 +1,3 @@
-using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Infrastructure;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -23,11 +22,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-IStartupSetup startupSetup = new StartupSetup();
-
-startupSetup.AddDbContexts(builder.Services, "name=ConnectionStrings:MatchesDb");
-startupSetup.AddRepositoriesToInterfaces(builder.Services);
-startupSetup.AddMapper(builder.Services);
+StartupSetup.AddDbContexts(builder.Services, "name=ConnectionStrings:MatchesDb");
+StartupSetup.AddRepositoriesToInterfaces(builder.Services);
+StartupSetup.AddServicesToInterfaces(builder.Services);
+StartupSetup.AddMapper(builder.Services);
 
 var app = builder.Build();
 

@@ -38,9 +38,10 @@ namespace Wsei.Matches.Infrastructure.Repositories
             Match? match = allMatchesFromDb.Where(match => match.Id == id)
                 .FirstOrDefault();
 
-            MatchDtoResponse matchDto = _mapper.Map<MatchDtoResponse>(match);
+            float? homeTeamWinRate = await _matchService.GetHomeTeamWinrateChanseAsync(match.HomeTeam.Name, match.GuestTeam.Name);
 
-            MatchDtoResponse matchDtoWithWinRate = await _matchService.SetWinrateChanseAsync(matchDto);
+            MatchDtoResponse matchDto = _mapper.Map<MatchDtoResponse>(match) with { HomeTeamWinRate = homeTeamWinRate };
+
 
             return matchDto;
         }

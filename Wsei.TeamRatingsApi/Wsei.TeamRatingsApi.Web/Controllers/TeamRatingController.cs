@@ -21,15 +21,15 @@ public class TeamRatingController : Controller
     }
 
     [HttpGet("byId/{id}")]
-    public async Task<TeamRatingDto> GetByIdAsync(int id)
+    public async Task<TeamRatingDto?> GetByIdAsync(int id)
     {
-        return await _teamRatingRepository.GetByIdAsync(id) ?? throw new Exception("Team rating not found");
+        return await _teamRatingRepository.GetByIdAsync(id);
     }
 
     [HttpGet("byTeamName/{teamName}")]
-    public async Task<TeamRatingDto> GetByIdAsync(string teamName)
+    public async Task<TeamRatingDto?> GetByTeamNameAsync(string teamName)
     {
-        return await _teamRatingRepository.GetByIdAsync(id) ?? throw new Exception();
+        return await _teamRatingRepository.GetByNameAsync(teamName);
     }
 
     [HttpDelete]

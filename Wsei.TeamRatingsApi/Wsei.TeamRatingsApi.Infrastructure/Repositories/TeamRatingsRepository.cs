@@ -27,22 +27,27 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Repositories
         {
             IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
 
-            TeamRating? ratedTeamFromDb = ratedTeamsFromDb.Where(team => team.Id == id).FirstOrDefault();
+            TeamRating? ratedTeamFromDb = ratedTeamsFromDb.Where(team => team.Id == id).First();
 
             TeamRatingDto ratedTeamDto = CustomMapper.Map(ratedTeamFromDb);
 
             return ratedTeamDto;
         }
 
-        public async Task<TeamRatingDto?> GetByTeamNameAsync(string teamName)
+        public async Task<TeamRatingDto?> GetByNameAsync(string teamName)
         {
             IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
 
             TeamRating? ratedTeamFromDb = ratedTeamsFromDb.Where(team => team.Name == teamName).FirstOrDefault();
 
-            TeamRatingDto ratedTeamDto = CustomMapper.Map(ratedTeamFromDb);
-
-            return ratedTeamDto;
+            if (ratedTeamFromDb is not null)
+            {
+                return CustomMapper.Map(ratedTeamFromDb);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task AddAsync(IEnumerable<TeamRatingDto> ratedTeamsDto)

@@ -11,7 +11,7 @@ public class BaseCrudController<Request, Response> : Controller
         _repository = repository;
     }
 
-    [HttpGet("all")]
+    [HttpGet]
     [Authorize(Roles = "Admin")]
     public virtual async Task<IEnumerable<Response>> GetAllAsync()
     {
@@ -24,7 +24,7 @@ public class BaseCrudController<Request, Response> : Controller
         return await _repository.GetByIdAsync(id) ?? throw new Exception();
     }
 
-    [HttpDelete("delete"), Authorize(Roles = "Admin")]
+    [HttpDelete, Authorize(Roles = "Admin")]
     public virtual async Task<bool> DeleteByIdAsync([FromBody] IEnumerable<int> id)
     {
         await _repository.DeleteAsync(id);

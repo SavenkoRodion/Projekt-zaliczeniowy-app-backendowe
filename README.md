@@ -50,6 +50,8 @@ W Package Manager Console odpalić polecenie: Update-Database
 5. Polecamy w Visual studio, nacisnąc prawym przyciskiem myszy na solucje i wybrać opcje Configure Startup Projects.\ 
 Wyświetli się okienko gdzie można wybrać parę projektów startowych. Tam polecam ustawić odpalanie tych projektów: Wsei.TeamRatingsApi.Web, Wsei.Matches.Web, Wsei.AutorizationApi
 
+6. W foldrze App znajduje się aplikacja frontendowa. W środku tego folderu trzeba odtwrorzyć cmd i odpalić npm install
+
 ## Obsługa systemu
 
 1. Wsei.AutorizationApi
@@ -70,22 +72,32 @@ Wtedy użytkownik będzie zalogowany w swaggerze i mógł korzystać z endpoint�
 
 #### W taki sam sposób działa logowanie w Wsei.Matches!
 
-2. Wsei.TeamRatings
-Mikroserwis bez logowania, ma w sobie informacje o wskaźniku oceny zespołu
+2. Wsei.TeamRatings\
+Mikroserwis bez logowania, ma w sobie informacje o wskaźniku oceny zespołu. Jest zrelizowny w onion architecture
 
-3. Wsei.Matches
-Główny mikroserwis. Większośc endpointów potrzebują być zalogowanym.\
-Żeby stowrzyć mecz w bazie, trzeba mieć stworzone w bazie zespoły, ligę, stadium. Żeby stworzyć ligę trzeba mieć stworzone państwo
+3. Wsei.Matches\
+Główny mikroserwis. Jest zrelizowny w onion architecture. Większośc endpointów potrzebują być zalogowanym.\
+Żeby stowrzyć mecz w bazie, trzeba mieć stworzone w bazie zespoły, ligę, stadium. Żeby stworzyć ligę trzeba mieć stworzone państwo\
+W Matches controller, metoda GetById robi dwa strzały do Wsei.TeamRatings.Web do metody GetByTeamName żeby uzyskać wskaźnik oceny zespołu i obliczyć szanse na wygraną zespołu gospodarza.\
+Jeżeli w Wsei.TeamRatings.Web nie będzie nazwy chociaż jednego zespołu z pary, szansa na wygraną będzie Null
+
+4. Wsei.Ui
+Aplikacja frontendowa napisana w React. Ma zaimplementowany Rounting i Ui za pomocą komponentów React-Bootstrap. Aplikacja wyświetla liste meczy pobieraną z Wsei.Matches. Nie wspiera logowania\
+Żeby przetestować aplikacje frontendową trzeba zakomentować autoryzacje endpointów
 
 ## Realizacja wymagań
 
-Zastosowanie wzorca Onion Architecture w projekcie. 
-Kod powinien być hostowany na platformie GitHub + udokumentowany. 
-Aplikacja powinna obsługiwać logowanie i rejestracje użytkowników po przez API. 
-Aplikacja powinna posiadać połączenie z bazą danych oraz min. 4 encje w tym min. 2 powiązane ze sobą. 
-Aplikacja powinna obsługiwać różne role użytkowników - np. user i admin. 
+#### Zrealizowane:
+Zastosowanie wzorca Onion Architecture w projekcie. 15pkt.\
+Kod powinien być hostowany na platformie GitHub + udokumentowany. 10pkt.\
+Aplikacja powinna obsługiwać logowanie i rejestracje użytkowników po przez API. 10pkt.\
+Aplikacja powinna posiadać połączenie z bazą danych oraz min. 4 encje w tym min. 2 powiązane ze sobą.  10pkt.\
+Aplikacja powinna obsługiwać różne role użytkowników - np. user i admin. 5pkt.\
+min. 2 mikro-serwisy. 15 pkt.\
+mikro-serwisy będą komunikować się między sobą. 14 pkt.\
 
-3 mikro-serwisy.
-Mikro-serwisy będą komunikować się między sobą. 
-Aplikacja front-endowa.
-Autoryzacja między mikro serwisami - nieuprawniony mikro-serwis nie powinien uzyskać dostępu.
+#### Częściowo zrealizowane
+Aplikacja front-endowa (np. w Blazor, AngularJS, etc.) 5 pkt. - Aplikacja jest połączona z mikroserwisem, ma zaimplementowany routing, nie wpiera logowania, nie realizuje wszystkich akcji kontrolerów
+
+#### Niezrealizowane
+Testy jednostkowe i integracyjne. 10 pkt.

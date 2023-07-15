@@ -6,7 +6,7 @@ public static class CustomMapper
 {
     public static TeamRatingDto Map(TeamRating ratedTeam)
     {
-        return new TeamRatingDto { Id = ratedTeam.Id, Name = ratedTeam.Name, Rating = ratedTeam.Rating };
+        return new TeamRatingDto(ratedTeam.Id, ratedTeam.Name, ratedTeam.Rating);
     }
 
     public static IEnumerable<TeamRatingDto> Map(IEnumerable<TeamRating> ratedTeams)
@@ -14,7 +14,7 @@ public static class CustomMapper
         List<TeamRatingDto> mappedRatedTeams = new List<TeamRatingDto>();
         foreach (var ratedTeam in ratedTeams)
         {
-            mappedRatedTeams.Add(new TeamRatingDto { Id = ratedTeam.Id, Name = ratedTeam.Name, Rating = ratedTeam.Rating });
+            mappedRatedTeams.Add(new TeamRatingDto(ratedTeam.Id, ratedTeam.Name, ratedTeam.Rating);
         }
 
         return mappedRatedTeams;

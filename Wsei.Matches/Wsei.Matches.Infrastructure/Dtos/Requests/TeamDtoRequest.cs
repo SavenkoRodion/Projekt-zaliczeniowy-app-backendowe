@@ -1,9 +1,4 @@
 ﻿namespace Wsei.Matches.Infrastructure.Dtos.Requests
 {
-    public class TeamDtoRequest
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int? LeagueId { get; set; }
-    }
+    public record TeamDtoRequest(int Id, string Name, int? LeagueId);
 }

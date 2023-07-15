@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using Wsei.AutorizationApi.Models;
 using Wsei.AutorizationApi.Repositories;
 
@@ -23,32 +22,57 @@ namespace Wsei.AutorizationApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<bool>> Register(UserDto request)
+        [AllowAnonymous]
+        public async Task<ActionResult<bool>> RegisterAsync(UserDto request)
         {
-            CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            PasswordUtil.CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
             User user = new User()
             {
                 Username = request.Username,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
+                PasswordSalt = passwordSalt,
+                IsAdmin = false
             };
             return Ok(await _userRepository.AddAsync(user));
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserDto request)
+        [AllowAnonymous]
+        public async Task<ActionResult<string>> LoginAsync(UserDto request)
         {
             User loggedUser = await _userRepository.GetLoggedUserAsync(request);
-                  string token = CreateToken(loggedUser);
-                  return Ok(token);
+            string token = await CreateTokenAsync(loggedUser);
+            return Ok(token);
         }
-        private string CreateToken(User user)
+
+        [HttpGet("grant-admin-role-to-user")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<string>> GrantAdminRoleToUserAsync(string userName)
+        {
+            return Ok(await _userRepository.GrantAdminRoleToUser(userName));
+        }
+
+        [HttpDelete("revoke-admin-role-to-user")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<string>> RevokeUserRolesAsync(string userName)
+        {
+            return await _userRepository.RevokeUserRoles(userName) is true ? Ok(true) : BadRequest(false);
+        }
+
+        private async Task<string> CreateTokenAsync(User user)
         {
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, "Admin")
             };
+
+            if (await _userRepository.IsAdmin(user.Username))
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+            }
+
+            claims.Add(new Claim(ClaimTypes.Role, "User"));
+
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
                 _configuration.GetSection("AppSettings:Token").Value));
 
@@ -61,13 +85,6 @@ namespace Wsei.AutorizationApi.Controllers
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
         }
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-            }
-        }
+
     }
 }

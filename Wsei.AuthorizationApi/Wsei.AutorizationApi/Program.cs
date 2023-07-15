@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
-using Wsei.AutorizationApi.Controllers;
-using System.Text;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using System.Text;
+using Wsei.AutorizationApi.Contexts;
 using Wsei.AutorizationApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +20,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
-builder.Services.AddSwaggerGen(options => {
+
+builder.Services.AddSwaggerGen(options =>
+{
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
         Description = "Standard Authorization header using the Bearer scheme(\"bearer {token}\")",
@@ -30,6 +32,7 @@ builder.Services.AddSwaggerGen(options => {
     });
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -42,8 +45,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
     });
+
 builder.Services.AddDbContext<AuthorizationDbContext>(
                options => options.UseSqlServer("name=ConnectionStrings:AuthorizationDb"));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -51,18 +56,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseHttpsRedirection();
 
-app.UseAuthentication();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseRouting();
-
-app.MapRazorPages();
-
-app.UseStaticFiles();
-
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

@@ -33,12 +33,11 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<TeamDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<Team> teamsFromDb = await _matchesDbContext.Teams
+            Team? team = await _matchesDbContext.Teams
                 .Include(team => team.League)
                     .ThenInclude(league => league.Country)
-                .ToListAsync();
-
-            Team? team = teamsFromDb.Where(team => team.Id == id).FirstOrDefault();
+                .Where(team => team.Id == id)
+                .FirstOrDefaultAsync();
 
             TeamDtoResponse teamDto = _mapper.Map<TeamDtoResponse>(team);
 

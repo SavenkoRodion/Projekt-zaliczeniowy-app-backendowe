@@ -29,9 +29,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<StadiumDto?> GetByIdAsync(int id)
         {
-            IEnumerable<Stadium> stadiumsFromDb = await _matchesDbContext.Stadiums.ToListAsync();
-
-            Stadium? stadium = stadiumsFromDb.Where(stadium => stadium.Id == id).FirstOrDefault();
+            Stadium? stadium = await _matchesDbContext.Stadiums.Where(stadium => stadium.Id == id).FirstOrDefaultAsync();
 
             StadiumDto stadiumDto = _mapper.Map<StadiumDto>(stadium);
 

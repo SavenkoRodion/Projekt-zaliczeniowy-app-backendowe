@@ -24,7 +24,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<MatchDtoResponse>> GetAllAsync()
         {
-            IEnumerable<Match> allMatchesFromDb = await GetAllMatchesFromDbAsync();
+            IEnumerable<Match> allMatchesFromDb = await GetAllMatchesFromDbAsync().ToListAsync();
 
             IEnumerable<MatchDtoResponse> matchesDto = _mapper.Map<IEnumerable<MatchDtoResponse>>(allMatchesFromDb);
 
@@ -33,10 +33,9 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<MatchDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<Match> allMatchesFromDb = await GetAllMatchesFromDbAsync();
-
-            Match? match = allMatchesFromDb.Where(match => match.Id == id)
-                .FirstOrDefault();
+            Match? match = await GetAllMatchesFromDbAsync()
+                .Where(match => match.Id == id)
+                .FirstOrDefaultAsync();
 
             float? homeTeamWinRate = await _matchService.GetHomeTeamWinrateChanseAsync(match.HomeTeam.Name, match.GuestTeam.Name);
 
@@ -81,7 +80,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
             await _matchesDbContext.SaveChangesAsync();
         }
 
-        private Task<List<Match>> GetAllMatchesFromDbAsync()
+        private IQueryable<Match> GetAllMatchesFromDbAsync()
         {
             return _matchesDbContext.Matches
                 .Include(match => match.HomeTeam)
@@ -95,8 +94,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 .Include(match => match.League)
                     .ThenInclude(league => league.Country)
 
-                .Include(match => match.Stadium)
-                .ToListAsync();
+                .Include(match => match.Stadium);
         }
     }
 }

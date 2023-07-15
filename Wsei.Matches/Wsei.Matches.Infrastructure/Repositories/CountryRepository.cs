@@ -30,7 +30,8 @@ namespace Wsei.Matches.Infrastructure.Repositories
         public async Task<CountryDto?> GetByIdAsync(int id)
         {
             Country? countryFromDb = await _matchesDbContext.Countries
-                .Where(country => country.Id == id).FirstOrDefaultAsync();
+                .Where(country => country.Id == id)
+                .FirstOrDefaultAsync();
 
             CountryDto countryDto = _mapper.Map<CountryDto>(countryFromDb);
 

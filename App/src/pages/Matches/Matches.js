@@ -6,7 +6,7 @@ const Matches = () => {
   const [matches, setMatches] = useState([]);
 
   const fetchUserData = () => {
-    fetch("https://localhost:7185/match/all")
+    fetch("https://localhost:7185/match/")
       .then((response) => {
         console.log(response);
         return response.json();

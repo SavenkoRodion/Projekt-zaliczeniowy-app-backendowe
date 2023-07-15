@@ -1,21 +1,35 @@
-# Projekt-zaliczeniowy-app-backendowe
+# Projekt zaliczeniowy L/23 N lab5/2/PROG Programowanie aplikacji back-endowych - Prowadzący: Michał Frontczak
 
-1. Strona tytułowa
-    Nazwa projektu
-    Data 
-    Autorzy
-
-Projekt zaliczeniowy L/23 N lab5/2/PROG Programowanie aplikacji back-endowych
-Prowadzący: Michał Frontczak
 15.07.2023
-Autorzy:
-Rodion Savenko
-Adrian Smoła
+
+Autorzy:\
+Rodion Savenko\
+Adrian Smoła\
 Miłosz Smoleń
    
-2. Wprowadzenie
-    Opis projektu
-    Opis technologii i narzędzi użytych w projekcie
+## Opis projektu
+### Temat: System dla przeglądu terminów meczy piłkarskich
+
+Projekt składa się z trzech mikroserwisów i projektu ui:
+1. Wsei.Matches - główny mikroserwis odpowiedzialny za wyświelanie meczy i ich szczegółów
+2. Wsei.Authorization - mikroserwis odpowiedzialny za rejestracje, logowanie i role użytkowników
+3. Wsei.TeamRatings - mikroserwis odpowiedzialny za przechowywanie i udostępnianie wskaźniku oceny zespołu. 
+Ten wskaźnik jest wykorzystywany przez Wsei.Matches dla obliczania szansy na wygraną zespołu gospodarza.
+
+### Opis technologii i narzędzi użytych w projekcie
+Projekt stworzony w Visual Studio 2022\
+Mikroserwisy napisane w .NET 7\
+Projekt UI napisany w React 18
+
+### Zewnętrzne biblioteki i paczki użyte w projekcie:
+Backend:
+Automapper
+
+Frontend:
+React-botstrap
+
+
+
 
    
 

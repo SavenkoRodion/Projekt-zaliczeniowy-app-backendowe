@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Wsei.AutorizationApi.Models;
 
 namespace Wsei.AutorizationApi.Controllers
 {
@@ -7,10 +8,8 @@ namespace Wsei.AutorizationApi.Controllers
         public AuthorizationDbContext(DbContextOptions options) : base(options)
         {
         }
-
-
         public DbSet<Role> Roles { get; set; }
-        public DbSet<UserDto> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }

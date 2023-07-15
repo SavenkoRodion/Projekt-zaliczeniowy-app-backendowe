@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Wsei.AutorizationApi.Models;
+using Wsei.AutorizationApi.Repositories;
 
 namespace Wsei.AutorizationApi.Controllers
 {
@@ -21,37 +22,40 @@ namespace Wsei.AutorizationApi.Controllers
     {
         private static User user = new User();
         private readonly IConfiguration _configuration;
+        private readonly UserRepository _userRepository;
 
-        public AuthController(IConfiguration configuration)
+        public AuthController(IConfiguration configuration, UserRepository userRepository)
         {
             _configuration = configuration;
+            _userRepository = userRepository;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(UserDto request)
+        public async Task<ActionResult<bool>> Register(UserDto request)
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.Username = request.Username;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-
-            return Ok(user);
+            return Ok(await _userRepository.AddAsync(user));
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
         {
-            if (user.Username != request.Username)
-            {
-                return BadRequest("User not found.");
-            }
-            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-            {
-                return BadRequest("Wrong password.");
-            }
-            string token = CreateToken(user);
-            return Ok(token);
+
+            User loggedUser = await _userRepository.GetLoggedUserAsync(request);
+            //     if (user.Username != request.Username)
+            //   {
+            //       return BadRequest("User not found.");
+            //    }
+            //   if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            //    {
+            //         return BadRequest("Wrong password.");
+            //   }
+                  string token = CreateToken(loggedUser);
+                  return Ok(token);
         }
 
         private string CreateToken(User user)
@@ -86,13 +90,6 @@ namespace Wsei.AutorizationApi.Controllers
             }
         }
 
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return StructuralComparisons.StructuralEqualityComparer.Equals(computedHash, passwordHash);
-            }
-        }
+        
     }
 }

@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.TeamRatingsApi.Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.TeamRatingsApi.Web", "Wsei.TeamRatingsApi\Wsei.TeamRatingsApi.Web\Wsei.TeamRatingsApi.Web.csproj", "{B3C7C5F6-45B0-471D-A1D2-6AAE3BF8AFEA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthrozationApi", "AuthrozationApi", "{135EE16C-1473-476B-AE0F-0F4156D92560}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wsei.AutorizationApi", "Wsei.AuthorizationApi\Wsei.AutorizationApi\Wsei.AutorizationApi.csproj", "{3A14CAAE-C152-45C9-A2CB-CD09DAF5D3DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{B3C7C5F6-45B0-471D-A1D2-6AAE3BF8AFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3C7C5F6-45B0-471D-A1D2-6AAE3BF8AFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3C7C5F6-45B0-471D-A1D2-6AAE3BF8AFEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A14CAAE-C152-45C9-A2CB-CD09DAF5D3DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A14CAAE-C152-45C9-A2CB-CD09DAF5D3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A14CAAE-C152-45C9-A2CB-CD09DAF5D3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A14CAAE-C152-45C9-A2CB-CD09DAF5D3DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{70763184-117A-4ECC-87AC-00F597D7EB4E} = {16DB9185-1D50-4DB2-9CC0-1D6D03101F05}
 		{B9DDB84D-FBD5-44F2-8DB6-68BB8F93E6E3} = {16DB9185-1D50-4DB2-9CC0-1D6D03101F05}
 		{B3C7C5F6-45B0-471D-A1D2-6AAE3BF8AFEA} = {16DB9185-1D50-4DB2-9CC0-1D6D03101F05}
+		{3A14CAAE-C152-45C9-A2CB-CD09DAF5D3DD} = {135EE16C-1473-476B-AE0F-0F4156D92560}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E58E97E1-9AEA-4219-91B5-5028A2CB969F}

@@ -81,10 +81,10 @@ namespace Wsei.Matches.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("GuestTeamId")
+                    b.Property<int>("GuestTeamId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HomeTeamId")
+                    b.Property<int>("HomeTeamId")
                         .HasColumnType("int");
 
                     b.Property<int?>("LeagueId")
@@ -168,11 +168,13 @@ namespace Wsei.Matches.Infrastructure.Migrations
                 {
                     b.HasOne("Wsei.Matches.Core.DbModel.Team", "GuestTeam")
                         .WithMany("GuestMatches")
-                        .HasForeignKey("GuestTeamId");
+                        .HasForeignKey("GuestTeamId")
+                        .IsRequired();
 
                     b.HasOne("Wsei.Matches.Core.DbModel.Team", "HomeTeam")
                         .WithMany("HomeMatches")
-                        .HasForeignKey("HomeTeamId");
+                        .HasForeignKey("HomeTeamId")
+                        .IsRequired();
 
                     b.HasOne("Wsei.Matches.Core.DbModel.League", "League")
                         .WithMany("Matches")

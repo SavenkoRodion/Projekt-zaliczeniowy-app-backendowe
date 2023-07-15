@@ -16,7 +16,7 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Repositories
 
         public async Task<IEnumerable<TeamRatingDto>> GetAllAsync()
         {
-            IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
+            IEnumerable<TeamRating> ratedTeamsFromDb = await _teamRatingsDbContext.RatedTeams.ToListAsync();
 
             IEnumerable<TeamRatingDto> ratedTeamsDto = CustomMapper.Map(ratedTeamsFromDb);
 
@@ -25,7 +25,7 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Repositories
 
         public async Task<TeamRatingDto?> GetByIdAsync(int id)
         {
-            IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
+            IEnumerable<TeamRating> ratedTeamsFromDb = await _teamRatingsDbContext.RatedTeams.ToListAsync();
 
             TeamRating? ratedTeamFromDb = ratedTeamsFromDb.Where(team => team.Id == id).First();
 
@@ -36,7 +36,7 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Repositories
 
         public async Task<TeamRatingDto?> GetByNameAsync(string teamName)
         {
-            IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
+            IEnumerable<TeamRating> ratedTeamsFromDb = await _teamRatingsDbContext.RatedTeams.ToListAsync();
 
             TeamRating? ratedTeamFromDb = ratedTeamsFromDb.Where(team => team.Name == teamName).FirstOrDefault();
 

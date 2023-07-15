@@ -22,18 +22,18 @@ namespace Wsei.Matches.Infrastructure.Repositories
             _matchService = matchService;
         }
 
-        public async Task<IEnumerable<MatchDtoResponse>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<MatchDtoResponse>> GetAllAsync()
         {
-            IEnumerable<Match> allMatchesFromDb = await GetAllMatchesFromDbAsync(cancellationToken);
+            IEnumerable<Match> allMatchesFromDb = await GetAllMatchesFromDbAsync();
 
             IEnumerable<MatchDtoResponse> matchesDto = _mapper.Map<IEnumerable<MatchDtoResponse>>(allMatchesFromDb);
 
             return matchesDto;
         }
 
-        public async Task<MatchDtoResponse?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task<MatchDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<Match> allMatchesFromDb = await GetAllMatchesFromDbAsync(cancellationToken);
+            IEnumerable<Match> allMatchesFromDb = await GetAllMatchesFromDbAsync();
 
             Match? match = allMatchesFromDb.Where(match => match.Id == id)
                 .FirstOrDefault();
@@ -46,7 +46,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
             return matchDto;
         }
 
-        public async Task AddAsync(IEnumerable<MatchDtoRequest> matches, CancellationToken cancellationToken)
+        public async Task AddAsync(IEnumerable<MatchDtoRequest> matches)
         {
             Match matchDbModel;
             foreach (MatchDtoRequest match in matches)
@@ -56,7 +56,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 _matchesDbContext.Matches.Attach(matchDbModel);
                 _matchesDbContext.Matches.Entry(matchDbModel).State = EntityState.Added;
             }
-            await _matchesDbContext.SaveChangesAsync(cancellationToken);
+            await _matchesDbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(IEnumerable<int> ids)
@@ -81,7 +81,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
             await _matchesDbContext.SaveChangesAsync();
         }
 
-        private Task<List<Match>> GetAllMatchesFromDbAsync(CancellationToken cancellationToken)
+        private Task<List<Match>> GetAllMatchesFromDbAsync()
         {
             return _matchesDbContext.Matches
                 .Include(match => match.HomeTeam)
@@ -96,7 +96,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
                     .ThenInclude(league => league.Country)
 
                 .Include(match => match.Stadium)
-                .ToListAsync(cancellationToken);
+                .ToListAsync();
         }
     }
 }

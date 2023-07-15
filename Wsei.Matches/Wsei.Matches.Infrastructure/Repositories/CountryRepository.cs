@@ -18,26 +18,26 @@ namespace Wsei.Matches.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CountryDto>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<CountryDto>> GetAllAsync()
         {
-            IEnumerable<Country> countriesFromDb = await _matchesDbContext.Countries.ToListAsync(cancellationToken);
+            IEnumerable<Country> countriesFromDb = await _matchesDbContext.Countries.ToListAsync();
 
             IEnumerable<CountryDto> countriesDto = _mapper.Map<IEnumerable<CountryDto>>(countriesFromDb);
 
             return countriesDto;
         }
 
-        public async Task<CountryDto?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task<CountryDto?> GetByIdAsync(int id)
         {
             Country? countryFromDb = await _matchesDbContext.Countries
-                .Where(country => country.Id == id).FirstOrDefaultAsync(cancellationToken);
+                .Where(country => country.Id == id).FirstOrDefaultAsync();
 
             CountryDto countryDto = _mapper.Map<CountryDto>(countryFromDb);
 
             return countryDto;
         }
 
-        public async Task AddAsync(IEnumerable<CountryDto> countriesDto, CancellationToken cancellationToken)
+        public async Task AddAsync(IEnumerable<CountryDto> countriesDto)
         {
             Country countryDbModel;
             foreach (CountryDto countryDto in countriesDto)
@@ -45,18 +45,18 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 countryDbModel = _mapper.Map<Country>(countryDto);
                 await _matchesDbContext.Countries.AddAsync(countryDbModel);
             }
-            await _matchesDbContext.SaveChangesAsync(cancellationToken);
+            await _matchesDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(IEnumerable<int> ids, CancellationToken cancellationToken)
+        public async Task DeleteAsync(IEnumerable<int> ids)
         {
             foreach (int id in ids)
             {
-                await _matchesDbContext.Countries.Where(country => country.Id == id).ExecuteDeleteAsync(cancellationToken);
+                await _matchesDbContext.Countries.Where(country => country.Id == id).ExecuteDeleteAsync();
             }
         }
 
-        public async Task UpdateAsync(IEnumerable<CountryDto> countriesToUpdate, CancellationToken cancellationToken)
+        public async Task UpdateAsync(IEnumerable<CountryDto> countriesToUpdate)
         {
             foreach (CountryDto countryToUpdate in countriesToUpdate)
             {
@@ -67,7 +67,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 countryFromDb = updatedCountry;
                 _matchesDbContext.Countries.Entry(countryFromDb).State = EntityState.Modified;
             }
-            await _matchesDbContext.SaveChangesAsync(cancellationToken);
+            await _matchesDbContext.SaveChangesAsync();
         }
     }
 }

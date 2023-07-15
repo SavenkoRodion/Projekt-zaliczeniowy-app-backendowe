@@ -18,7 +18,6 @@ public class MatchController
     [HttpGet("all")]
     public async Task<IEnumerable<MatchDtoResponse>> GetAllAsync()
     {
-        var allMatches = await _repository.GetAllAsync();
         return await _repository.GetAllAsync();
     }
 

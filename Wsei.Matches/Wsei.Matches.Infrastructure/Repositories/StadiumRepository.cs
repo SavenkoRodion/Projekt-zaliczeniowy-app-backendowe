@@ -18,18 +18,18 @@ namespace Wsei.Matches.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<StadiumDto>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<StadiumDto>> GetAllAsync()
         {
-            IEnumerable<Stadium> stadiumsFromDb = await _matchesDbContext.Stadiums.ToListAsync(cancellationToken);
+            IEnumerable<Stadium> stadiumsFromDb = await _matchesDbContext.Stadiums.ToListAsync();
 
             IEnumerable<StadiumDto> stadiumDto = _mapper.Map<IEnumerable<StadiumDto>>(stadiumsFromDb);
 
             return stadiumDto;
         }
 
-        public async Task<StadiumDto?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task<StadiumDto?> GetByIdAsync(int id)
         {
-            IEnumerable<Stadium> stadiumsFromDb = await _matchesDbContext.Stadiums.ToListAsync(cancellationToken);
+            IEnumerable<Stadium> stadiumsFromDb = await _matchesDbContext.Stadiums.ToListAsync();
 
             Stadium? stadium = stadiumsFromDb.Where(stadium => stadium.Id == id).FirstOrDefault();
 
@@ -38,37 +38,37 @@ namespace Wsei.Matches.Infrastructure.Repositories
             return stadiumDto;
         }
 
-        public async Task AddAsync(IEnumerable<StadiumDto> stadiums, CancellationToken cancellationToken)
+        public async Task AddAsync(IEnumerable<StadiumDto> stadiums)
         {
             Stadium stadiumDbModel;
             foreach (StadiumDto stadium in stadiums)
             {
                 stadiumDbModel = _mapper.Map<Stadium>(stadium);
-                await _matchesDbContext.Stadiums.AddAsync(stadiumDbModel, cancellationToken);
+                await _matchesDbContext.Stadiums.AddAsync(stadiumDbModel);
             }
-            await _matchesDbContext.SaveChangesAsync(cancellationToken);
+            await _matchesDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(IEnumerable<int> ids, CancellationToken cancellationToken)
+        public async Task DeleteAsync(IEnumerable<int> ids)
         {
             foreach (int id in ids)
             {
-                await _matchesDbContext.Stadiums.Where(match => match.Id == id).ExecuteDeleteAsync(cancellationToken);
+                await _matchesDbContext.Stadiums.Where(match => match.Id == id).ExecuteDeleteAsync();
             }
         }
 
-        public async Task UpdateAsync(IEnumerable<StadiumDto> stadiumsToUpdate, CancellationToken cancellationToken)
+        public async Task UpdateAsync(IEnumerable<StadiumDto> stadiumsToUpdate)
         {
             foreach (StadiumDto stadiumToUpdate in stadiumsToUpdate)
             {
-                Stadium stadiumFromDb = await _matchesDbContext.Stadiums.AsNoTracking().Where(match => match.Id == stadiumToUpdate.Id).FirstAsync(cancellationToken);
+                Stadium stadiumFromDb = await _matchesDbContext.Stadiums.AsNoTracking().Where(match => match.Id == stadiumToUpdate.Id).FirstAsync();
 
                 Stadium updatedStadium = _mapper.Map<Stadium>(stadiumToUpdate);
 
                 stadiumFromDb = updatedStadium;
                 _matchesDbContext.Stadiums.Entry(stadiumFromDb).State = EntityState.Modified;
             }
-            await _matchesDbContext.SaveChangesAsync(cancellationToken);
+            await _matchesDbContext.SaveChangesAsync();
         }
     }
 }

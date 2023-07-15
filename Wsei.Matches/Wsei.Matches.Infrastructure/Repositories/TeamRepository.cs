@@ -19,24 +19,24 @@ namespace Wsei.Matches.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TeamDtoResponse>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<TeamDtoResponse>> GetAllAsync()
         {
             IEnumerable<Team> teamsFromDb = await _matchesDbContext.Teams
                 .Include(x => x.League)
                     .ThenInclude(league => league.Country)
-                .ToListAsync(cancellationToken);
+                .ToListAsync();
 
             IEnumerable<TeamDtoResponse> teamDto = _mapper.Map<IEnumerable<TeamDtoResponse>>(teamsFromDb);
 
             return teamDto;
         }
 
-        public async Task<TeamDtoResponse?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task<TeamDtoResponse?> GetByIdAsync(int id)
         {
             IEnumerable<Team> teamsFromDb = await _matchesDbContext.Teams
                 .Include(team => team.League)
                     .ThenInclude(league => league.Country)
-                .ToListAsync(cancellationToken);
+                .ToListAsync();
 
             Team? team = teamsFromDb.Where(team => team.Id == id).FirstOrDefault();
 
@@ -45,7 +45,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
             return teamDto;
         }
 
-        public async Task AddAsync(IEnumerable<TeamDtoRequest> teams, CancellationToken cancellationToken)
+        public async Task AddAsync(IEnumerable<TeamDtoRequest> teams)
         {
             Team teamsDbModel;
             foreach (TeamDtoRequest team in teams)
@@ -55,29 +55,29 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 _matchesDbContext.Teams.Attach(teamsDbModel);
                 _matchesDbContext.Teams.Entry(teamsDbModel).State = EntityState.Added;
             }
-            await _matchesDbContext.SaveChangesAsync(cancellationToken);
+            await _matchesDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(IEnumerable<int> ids, CancellationToken cancellationToken)
+        public async Task DeleteAsync(IEnumerable<int> ids)
         {
             foreach (int id in ids)
             {
-                await _matchesDbContext.Teams.Where(match => match.Id == id).ExecuteDeleteAsync(cancellationToken);
+                await _matchesDbContext.Teams.Where(match => match.Id == id).ExecuteDeleteAsync();
             }
         }
 
-        public async Task UpdateAsync(IEnumerable<TeamDtoRequest> teamsToUpdate, CancellationToken cancellationToken)
+        public async Task UpdateAsync(IEnumerable<TeamDtoRequest> teamsToUpdate)
         {
             foreach (TeamDtoRequest teamToUpdate in teamsToUpdate)
             {
-                Team teamFromDb = await _matchesDbContext.Teams.AsNoTracking().Where(match => match.Id == teamToUpdate.Id).FirstAsync(cancellationToken);
+                Team teamFromDb = await _matchesDbContext.Teams.AsNoTracking().Where(match => match.Id == teamToUpdate.Id).FirstAsync();
 
                 Team updatedTeam = _mapper.Map<Team>(teamToUpdate);
 
                 teamFromDb = updatedTeam;
                 _matchesDbContext.Teams.Entry(teamFromDb).State = EntityState.Modified;
             }
-            await _matchesDbContext.SaveChangesAsync(cancellationToken);
+            await _matchesDbContext.SaveChangesAsync();
         }
     }
 }

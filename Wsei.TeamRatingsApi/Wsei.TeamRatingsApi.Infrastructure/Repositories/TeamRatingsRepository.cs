@@ -16,7 +16,7 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Repositories
 
         public async Task<IEnumerable<TeamRatingDto>> GetAllAsync()
         {
-            IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
+            IEnumerable<TeamRating> ratedTeamsFromDb = await _teamRatingsDbContext.RatedTeams.ToListAsync();
 
             IEnumerable<TeamRatingDto> ratedTeamsDto = CustomMapper.Map(ratedTeamsFromDb);
 
@@ -25,20 +25,23 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Repositories
 
         public async Task<TeamRatingDto?> GetByIdAsync(int id)
         {
-            IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
+            TeamRating? ratedTeamFromDb = await _teamRatingsDbContext.RatedTeams.Where(team => team.Id == id).FirstOrDefaultAsync();
 
-            TeamRating? ratedTeamFromDb = ratedTeamsFromDb.Where(team => team.Id == id).First();
-
-            TeamRatingDto ratedTeamDto = CustomMapper.Map(ratedTeamFromDb);
-
-            return ratedTeamDto;
+            if (ratedTeamFromDb is not null)
+            {
+                return CustomMapper.Map(ratedTeamFromDb);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<TeamRatingDto?> GetByNameAsync(string teamName)
         {
-            IEnumerable<TeamRating> ratedTeamsFromDb = _teamRatingsDbContext.RatedTeams.ToList();
-
-            TeamRating? ratedTeamFromDb = ratedTeamsFromDb.Where(team => team.Name == teamName).FirstOrDefault();
+            TeamRating? ratedTeamFromDb = await _teamRatingsDbContext.RatedTeams
+                .Where(team => team.Name == teamName)
+                .FirstOrDefaultAsync();
 
             if (ratedTeamFromDb is not null)
             {

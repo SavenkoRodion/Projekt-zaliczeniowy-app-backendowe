@@ -11,8 +11,8 @@ using Wsei.TeamRatingsApi.Infrastructure;
 namespace Wsei.TeamRatingsApi.Infrastructure.Migrations
 {
     [DbContext(typeof(TeamRatingsDbContext))]
-    [Migration("20230709201353_init")]
-    partial class init
+    [Migration("20230715120434_Main")]
+    partial class Main
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Wsei.TeamRatingsApi.Core.DbModel.RatedTeam", b =>
+            modelBuilder.Entity("Wsei.TeamRatingsApi.Core.DbModel.TeamRating", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

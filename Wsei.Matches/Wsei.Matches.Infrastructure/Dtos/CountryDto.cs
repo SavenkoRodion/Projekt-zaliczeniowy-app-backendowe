@@ -1,8 +1,4 @@
 ﻿namespace Wsei.Matches.Infrastructure.Dtos
 {
-    public class CountryDto
-    {
-        public int? Id { get; set; }
-        public string Name { get; set; }
-    }
+    public record CountryDto(int? Id, string Name);
 }

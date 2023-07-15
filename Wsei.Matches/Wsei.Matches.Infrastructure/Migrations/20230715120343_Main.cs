@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Wsei.Matches.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Main : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -84,8 +84,8 @@ namespace Wsei.Matches.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HomeTeamId = table.Column<int>(type: "int", nullable: true),
-                    GuestTeamId = table.Column<int>(type: "int", nullable: true),
+                    HomeTeamId = table.Column<int>(type: "int", nullable: false),
+                    GuestTeamId = table.Column<int>(type: "int", nullable: false),
                     LeagueId = table.Column<int>(type: "int", nullable: true),
                     StadiumId = table.Column<int>(type: "int", nullable: true),
                     MatchDate = table.Column<DateTime>(type: "datetime2", nullable: true),

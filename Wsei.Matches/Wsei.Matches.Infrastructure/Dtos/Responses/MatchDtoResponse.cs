@@ -1,10 +1,10 @@
 ﻿namespace Wsei.Matches.Infrastructure.Dtos.Responses
 {
-    public record MatchDtoResponse
+    public class MatchDtoResponse
     {
-        public int? Id { get; set; }
-        public TeamDtoResponse? HomeTeam { get; set; }
-        public TeamDtoResponse? GuestTeam { get; set; }
+        public int Id { get; set; }
+        public TeamDtoResponse HomeTeam { get; set; } = null!;
+        public TeamDtoResponse GuestTeam { get; set; } = null!;
         public LeagueDtoResponse? League { get; set; }
         public StadiumDto? Stadium { get; set; }
         public DateTime? MatchDate { get; set; }

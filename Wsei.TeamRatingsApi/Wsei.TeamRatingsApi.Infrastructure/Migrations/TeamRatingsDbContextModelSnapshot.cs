@@ -21,7 +21,7 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Wsei.TeamRatingsApi.Core.DbModel.RatedTeam", b =>
+            modelBuilder.Entity("Wsei.TeamRatingsApi.Core.DbModel.TeamRating", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -21,10 +21,10 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<TeamDtoResponse>> GetAllAsync()
         {
-            IEnumerable<Team> teamsFromDb = _matchesDbContext.Teams
+            IEnumerable<Team> teamsFromDb = await _matchesDbContext.Teams
                 .Include(x => x.League)
                     .ThenInclude(league => league.Country)
-                .ToList();
+                .ToListAsync();
 
             IEnumerable<TeamDtoResponse> teamDto = _mapper.Map<IEnumerable<TeamDtoResponse>>(teamsFromDb);
 
@@ -33,16 +33,20 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<TeamDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<Team> teamsFromDb = _matchesDbContext.Teams
+            Team? team = await _matchesDbContext.Teams
                 .Include(team => team.League)
                     .ThenInclude(league => league.Country)
-                .ToList();
+                .Where(team => team.Id == id)
+                .FirstOrDefaultAsync();
 
-            Team? team = teamsFromDb.Where(team => team.Id == id).FirstOrDefault();
-
-            TeamDtoResponse teamDto = _mapper.Map<TeamDtoResponse>(team);
-
-            return teamDto;
+            if (team is not null)
+            {
+                return _mapper.Map<TeamDtoResponse>(team);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task AddAsync(IEnumerable<TeamDtoRequest> teams)

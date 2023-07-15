@@ -20,7 +20,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<StadiumDto>> GetAllAsync()
         {
-            IEnumerable<Stadium> stadiumsFromDb = _matchesDbContext.Stadiums.ToList();
+            IEnumerable<Stadium> stadiumsFromDb = await _matchesDbContext.Stadiums.ToListAsync();
 
             IEnumerable<StadiumDto> stadiumDto = _mapper.Map<IEnumerable<StadiumDto>>(stadiumsFromDb);
 
@@ -29,13 +29,16 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<StadiumDto?> GetByIdAsync(int id)
         {
-            IEnumerable<Stadium> stadiumsFromDb = _matchesDbContext.Stadiums.ToList();
+            Stadium? stadium = await _matchesDbContext.Stadiums.Where(stadium => stadium.Id == id).FirstOrDefaultAsync();
 
-            Stadium? stadium = stadiumsFromDb.Where(stadium => stadium.Id == id).FirstOrDefault();
-
-            StadiumDto stadiumDto = _mapper.Map<StadiumDto>(stadium);
-
-            return stadiumDto;
+            if (stadium is not null)
+            {
+                return _mapper.Map<StadiumDto>(stadium);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task AddAsync(IEnumerable<StadiumDto> stadiums)

@@ -24,7 +24,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<MatchDtoResponse>> GetAllAsync()
         {
-            IEnumerable<Match> allMatchesFromDb = GetAllMatchesFromDb();
+            IEnumerable<Match> allMatchesFromDb = await GetAllMatchesFromDbAsync().ToListAsync();
 
             IEnumerable<MatchDtoResponse> matchesDto = _mapper.Map<IEnumerable<MatchDtoResponse>>(allMatchesFromDb);
 
@@ -33,17 +33,23 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<MatchDtoResponse?> GetByIdAsync(int id)
         {
-            IEnumerable<Match> allMatchesFromDb = GetAllMatchesFromDb();
+            Match? match = await GetAllMatchesFromDbAsync()
+                .Where(match => match.Id == id)
+                .FirstOrDefaultAsync();
 
-            Match? match = allMatchesFromDb.Where(match => match.Id == id)
-                .FirstOrDefault();
+            if (match is not null)
+            {
+                float? homeTeamWinRate = await _matchService.GetHomeTeamWinrateChanseAsync(match.HomeTeam.Name, match.GuestTeam.Name);
 
-            float? homeTeamWinRate = await _matchService.GetHomeTeamWinrateChanseAsync(match.HomeTeam.Name, match.GuestTeam.Name);
+                MatchDtoResponse matchDto = _mapper.Map<MatchDtoResponse>(match);
+                matchDto.HomeTeamWinRate = homeTeamWinRate;
 
-            MatchDtoResponse matchDto = _mapper.Map<MatchDtoResponse>(match) with { HomeTeamWinRate = homeTeamWinRate };
-
-
-            return matchDto;
+                return matchDto;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task AddAsync(IEnumerable<MatchDtoRequest> matches)
@@ -81,7 +87,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
             await _matchesDbContext.SaveChangesAsync();
         }
 
-        private IEnumerable<Match> GetAllMatchesFromDb()
+        private IQueryable<Match> GetAllMatchesFromDbAsync()
         {
             return _matchesDbContext.Matches
                 .Include(match => match.HomeTeam)
@@ -95,7 +101,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 .Include(match => match.League)
                     .ThenInclude(league => league.Country)
 
-                .Include(match => match.Stadium).ToList();
+                .Include(match => match.Stadium);
         }
     }
 }

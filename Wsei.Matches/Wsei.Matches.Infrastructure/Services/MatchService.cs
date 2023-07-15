@@ -30,11 +30,11 @@ public class MatchService : IMatchService
 
     private static float GetHomeTeamWinRate(TeamRatingDto homeTeamRating, TeamRatingDto guestTeamRating)
     {
-        if (homeTeamRating.Rating > guestTeamRating.Rating)
+        if (homeTeamRating.Rating < guestTeamRating.Rating)
         {
             return (float)(((float)homeTeamRating.Rating / (float)guestTeamRating.Rating) * 0.5);
         }
-        else if (homeTeamRating.Rating < guestTeamRating.Rating)
+        else if (homeTeamRating.Rating > guestTeamRating.Rating)
         {
             return (float)(1 - ((float)homeTeamRating.Rating / (float)guestTeamRating.Rating) * 0.5);
         }

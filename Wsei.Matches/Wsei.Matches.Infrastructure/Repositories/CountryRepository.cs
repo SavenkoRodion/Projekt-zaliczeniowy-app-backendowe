@@ -20,7 +20,7 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<IEnumerable<CountryDto>> GetAllAsync()
         {
-            IEnumerable<Country> countriesFromDb = _matchesDbContext.Countries.ToList();
+            IEnumerable<Country> countriesFromDb = await _matchesDbContext.Countries.ToListAsync();
 
             IEnumerable<CountryDto> countriesDto = _mapper.Map<IEnumerable<CountryDto>>(countriesFromDb);
 
@@ -29,19 +29,24 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<CountryDto?> GetByIdAsync(int id)
         {
-            IEnumerable<Country> countriesFromDb = _matchesDbContext.Countries.ToList();
+            Country? countryFromDb = await _matchesDbContext.Countries
+                .Where(country => country.Id == id)
+                .FirstOrDefaultAsync();
 
-            Country? countryFromDb = countriesFromDb.Where(country => country.Id == id).FirstOrDefault();
-
-            CountryDto countryDto = _mapper.Map<CountryDto>(countryFromDb);
-
-            return countryDto;
+            if (countryFromDb is not null)
+            {
+                return _mapper.Map<CountryDto>(countryFromDb);
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public async Task AddAsync(IEnumerable<CountryDto> countriesDtp)
+        public async Task AddAsync(IEnumerable<CountryDto> countriesDto)
         {
             Country countryDbModel;
-            foreach (CountryDto countryDto in countriesDtp)
+            foreach (CountryDto countryDto in countriesDto)
             {
                 countryDbModel = _mapper.Map<Country>(countryDto);
                 await _matchesDbContext.Countries.AddAsync(countryDbModel);

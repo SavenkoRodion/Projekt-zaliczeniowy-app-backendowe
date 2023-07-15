@@ -32,20 +32,37 @@ React-botstrap
 1. Sklonować repositorium
 2. Główna solucja to: Project-zaliczeniowy-app-backendowe.sln
 3. W Wsei.TeamRatings.Web, Wsei.Matches.Web, Wsei.AuthorizationApi w appsettings.json ustawić poprawny lokalny server ssms (defaultowo jest Server=.\\SQLEXPRESS; )
-4.1. Odpalić Package Manager Console w Visual Studio. 
-Ustawić w niej Default project na Wsei.TeamRatingsApi.Infrastructure.
-Jako Startup Project ustawić Wsei.TeamRatingsApi.Web
-W Package Manager Console odpalić polecenie: Update-Database
-4.2. Ustawić w Package Manager Console, Default project na Wsei.Matches.Infrastructure
-Jako Startup Project ustawić Wsei.Matches.Web 
-W Package Manager Console odpalić polecenie: Update-Database
-4.2. Ustawić w Package Manager Console, Default project na Wsei.AutorizationApi
-Jako Startup Project ustawić Wsei.Matches.Web 
+4. Stworzenie baz
+
+4.1. Odpalić Package Manager Console w Visual Studio.  
+Ustawić w niej Default project na Wsei.TeamRatingsApi.Infrastructure.\
+Jako Startup Project ustawić Wsei.TeamRatingsApi.Web\
 W Package Manager Console odpalić polecenie: Update-Database
 
+4.2. Ustawić w Package Manager Console, Default project na Wsei.Matches.Infrastructure\
+Jako Startup Project ustawić Wsei.Matches.Web\
+W Package Manager Console odpalić polecenie: Update-Database
+
+4.3. Ustawić w Package Manager Console, Default project na Wsei.AutorizationApi\
+Jako Startup Project ustawić Wsei.AutorizationApi\
+W Package Manager Console odpalić polecenie: Update-Database
+
+5. Polecamy w Visual studio, nacisnąc prawym przyciskiem myszy na solucje i wybrać opcje Configure Startup Projects.\ 
+Wyświetli się okienko gdzie można wybrać parę projektów startowych. Tam polecam ustawić odpalanie tych projektów: Wsei.TeamRatingsApi.Web, Wsei.Matches.Web, Wsei.AutorizationApi
+
+## Obsługa systemu
+
+1. Wsei.AutorizationApi\
+System obsługuje dwie role: User, Admin. Są endpoity z których może korzystać użytkownik niezalogowany
+
+Po przejściu procesu instalacji i konfiguracji systemu opisanego wyżej w bazie będzie stworzony pierwszy administator (username: admin, hasło: admin)
+
+Rejestracja: przy rejestracji jest tworzony użytkownik który będzie miał Role: "User"
+
+Użytkownikowi role "Admin" może nadać tylko inny użytkownik z rolą "Admin"
    
 
-4. Realizacja wymagań
+5. Realizacja wymagań
 
 Zastosowanie wzorca Onion Architecture w projekcie. 
 Kod powinien być hostowany na platformie GitHub + udokumentowany. 

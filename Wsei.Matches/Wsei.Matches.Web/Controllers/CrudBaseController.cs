@@ -12,19 +12,21 @@ public class BaseCrudController<Request, Response> : Controller
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     public virtual async Task<IEnumerable<Response>> GetAllAsync()
     {
         return await _repository.GetAllAsync();
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public virtual async Task<Response> GetByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id) ?? throw new Exception();
     }
 
-    [HttpDelete, Authorize(Roles = "Admin")]
+    [HttpDelete]
+    [Authorize(Roles = "Admin")]
     public virtual async Task<bool> DeleteByIdAsync([FromBody] IEnumerable<int> id)
     {
         await _repository.DeleteAsync(id);
@@ -32,6 +34,7 @@ public class BaseCrudController<Request, Response> : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public virtual async Task<bool> Add([FromBody] IEnumerable<Request> countries)
     {
         await _repository.AddAsync(countries);
@@ -39,6 +42,7 @@ public class BaseCrudController<Request, Response> : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     public virtual async Task<bool> Update([FromBody] IEnumerable<Request> countries)
     {
         await _repository.UpdateAsync(countries);

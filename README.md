@@ -28,13 +28,20 @@ Automapper
 Frontend:
 React-botstrap
 
-
-
-
-   
-
-3. Instalacja i konfiguracja
-    Instrukcje dotyczące instalacji i konfiguracji projektu
+## Instalacja i konfiguracja
+1. Sklonować repositorium
+2. Główna solucja to: Project-zaliczeniowy-app-backendowe.sln
+3. W Wsei.TeamRatings.Web, Wsei.Matches.Web, Wsei.AuthorizationApi w appsettings.json ustawić poprawny lokalny server ssms (defaultowo jest Server=.\\SQLEXPRESS; )
+4.1. Odpalić Package Manager Console w Visual Studio. 
+Ustawić w niej Default project na Wsei.TeamRatingsApi.Infrastructure.
+Jako Startup Project ustawić Wsei.TeamRatingsApi.Web
+W Package Manager Console odpalić polecenie: Update-Database
+4.2. Ustawić w Package Manager Console, Default project na Wsei.Matches.Infrastructure
+Jako Startup Project ustawić Wsei.Matches.Web 
+W Package Manager Console odpalić polecenie: Update-Database
+4.2. Ustawić w Package Manager Console, Default project na Wsei.AutorizationApi
+Jako Startup Project ustawić Wsei.Matches.Web 
+W Package Manager Console odpalić polecenie: Update-Database
 
    
 

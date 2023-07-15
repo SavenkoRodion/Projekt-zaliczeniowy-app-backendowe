@@ -38,7 +38,7 @@ namespace Wsei.AutorizationApi.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Wsei.AutorizationApi.Controllers.UserDto", b =>
+            modelBuilder.Entity("Wsei.AutorizationApi.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,9 +46,13 @@ namespace Wsei.AutorizationApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Password")
+                    b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Username")
                         .IsRequired()

@@ -3,17 +3,21 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Wsei.AutorizationApi.Controllers;
 using System.Text;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Filters;
+using Wsei.AutorizationApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddRazorPages();
 
+builder.Services.AddDbContext<AuthorizationDbContext>(options =>
+{
+    options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=AuthorizationDb;Trusted_Connection=True;Encrypt=False;");
+});
+builder.Services.AddScoped<UserRepository>();
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
 builder.Services.AddSwaggerGen(options => {
@@ -42,18 +46,22 @@ builder.Services.AddDbContext<AuthorizationDbContext>(
                options => options.UseSqlServer("name=ConnectionStrings:AuthorizationDb"));
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseRouting();
+
+app.MapRazorPages();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 

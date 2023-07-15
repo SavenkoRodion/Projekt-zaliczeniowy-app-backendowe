@@ -11,8 +11,8 @@ using Wsei.AutorizationApi.Controllers;
 namespace Wsei.AutorizationApi.Migrations
 {
     [DbContext(typeof(AuthorizationDbContext))]
-    [Migration("20230715101042_1")]
-    partial class _1
+    [Migration("20230715111506_elo")]
+    partial class elo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

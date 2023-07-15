@@ -3,9 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Wsei.AutorizationApi.Controllers;
 using System.Text;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Filters;
 using Wsei.AutorizationApi.Repositories;
 
@@ -48,13 +46,11 @@ builder.Services.AddDbContext<AuthorizationDbContext>(
                options => options.UseSqlServer("name=ConnectionStrings:AuthorizationDb"));
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

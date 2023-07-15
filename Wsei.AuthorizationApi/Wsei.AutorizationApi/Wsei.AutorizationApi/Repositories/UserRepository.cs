@@ -24,6 +24,12 @@ namespace Wsei.AutorizationApi.Repositories
         }
         public async Task<bool> AddAsync(User user)
         {
+            User? existingUser = await _authorizationDbContext.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
+            if (existingUser != null)
+           {
+               throw new Exception("User with the same username already exists.");
+           }
+
             await _authorizationDbContext.Users.AddAsync(user);
             await _authorizationDbContext.SaveChangesAsync();
             return true;
@@ -31,9 +37,10 @@ namespace Wsei.AutorizationApi.Repositories
         public async Task<User> GetLoggedUserAsync(UserDto requestedUser)
         {
             IEnumerable<User> usersFromDb = await _authorizationDbContext.Users.ToListAsync();
-            foreach (var user in usersFromDb)
+            if (usersFromDb.Select(user => user.Username).Contains(requestedUser.Username))
+                
             {
-                if (user.Username == requestedUser.Username)
+                foreach (var user in usersFromDb)
                 {
                     if (VerifyPasswordHash(requestedUser.Password, user.PasswordHash, user.PasswordSalt))
                     {
@@ -44,14 +51,14 @@ namespace Wsei.AutorizationApi.Repositories
                         throw new Exception("Wrong password.");
                     }
                 }
-                else
-                {
-                    throw new Exception("User was not found.");
-                }
+                
+            }
+            else
+            {
+                throw new Exception("User was not found.");
             }
             throw new Exception("Something went wrong");
         }
-
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512(passwordSalt))

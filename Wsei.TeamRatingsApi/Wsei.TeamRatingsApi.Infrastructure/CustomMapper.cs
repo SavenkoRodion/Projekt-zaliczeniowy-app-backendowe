@@ -14,7 +14,7 @@ public static class CustomMapper
         List<TeamRatingDto> mappedRatedTeams = new List<TeamRatingDto>();
         foreach (var ratedTeam in ratedTeams)
         {
-            mappedRatedTeams.Add(new TeamRatingDto(ratedTeam.Id, ratedTeam.Name, ratedTeam.Rating);
+            mappedRatedTeams.Add(new TeamRatingDto(ratedTeam.Id, ratedTeam.Name, ratedTeam.Rating));
         }
 
         return mappedRatedTeams;

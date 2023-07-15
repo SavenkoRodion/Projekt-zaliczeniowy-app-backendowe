@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
 using Wsei.Matches.Core.Interfaces;
 using Wsei.Matches.Infrastructure.Dtos.Requests;
 using Wsei.Matches.Infrastructure.Dtos.Responses;
@@ -19,13 +18,6 @@ public class LeagueController : Controller
     [HttpGet("all")]
     public async Task<IEnumerable<LeagueDtoResponse>> GetAllAsync()
     {
-        HttpClient client = new HttpClient();
-        client.BaseAddress = new Uri("https://localhost:7206");
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/json"));
-        HttpResponseMessage response = await client.GetAsync("/teamRating/all");
-        var lol = await response.Content.ReadAsStringAsync();
         return await _repository.GetAllAsync();
     }
 

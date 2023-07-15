@@ -13,7 +13,7 @@ namespace Wsei.Matches.Infrastructure.Profiles
             CreateMap<Country, CountryDto>().ReverseMap();
             CreateMap<League, LeagueDtoResponse>().ReverseMap();
             CreateMap<Match, MatchDtoResponse>()
-                .ForPath(dest => dest.HomeTeamWinRate,
+                .ForMember(dest => dest.HomeTeamWinRate,
                     act => act.Ignore())
                 .ReverseMap();
             CreateMap<Stadium, StadiumDto>().ReverseMap();

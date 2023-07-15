@@ -33,20 +33,16 @@ namespace Wsei.AutorizationApi.Repositories
         }
         public async Task<User> GetLoggedUserAsync(UserDto requestedUser)
         {
-            IEnumerable<User> usersFromDb = await _authorizationDbContext.Users.ToListAsync();
-            if (usersFromDb.Select(user => user.Username).Contains(requestedUser.Username))
-
+            User? userFromDb = await _authorizationDbContext.Users.Where(user => user.Username == requestedUser.Username).FirstOrDefaultAsync();
+            if (userFromDb is not null)
             {
-                foreach (var user in usersFromDb)
+                if (PasswordUtil.VerifyPasswordHash(requestedUser.Password, userFromDb.PasswordHash, userFromDb.PasswordSalt))
                 {
-                    if (PasswordUtil.VerifyPasswordHash(requestedUser.Password, user.PasswordHash, user.PasswordSalt))
-                    {
-                        return user;
-                    }
-                    else
-                    {
-                        throw new Exception("Wrong password.");
-                    }
+                    return userFromDb;
+                }
+                else
+                {
+                    throw new Exception("Wrong password.");
                 }
             }
             else
@@ -71,10 +67,6 @@ namespace Wsei.AutorizationApi.Repositories
 
         public async Task<bool> GrantAdminRoleToUser(string userName)
         {
-            await _authorizationDbContext.Users
-                .Where(dbUser => dbUser.Username == userName)
-                .ExecuteDeleteAsync();
-
             User user = await _authorizationDbContext.Users
                 .Where(dbUser => dbUser.Username == userName).FirstAsync();
 
@@ -88,10 +80,6 @@ namespace Wsei.AutorizationApi.Repositories
 
         public async Task<bool> RevokeUserRoles(string userName)
         {
-            await _authorizationDbContext.Users
-                .Where(dbUser => dbUser.Username == userName)
-                .ExecuteDeleteAsync();
-
             User user = await _authorizationDbContext.Users
                 .Where(dbUser => dbUser.Username == userName).FirstAsync();
 

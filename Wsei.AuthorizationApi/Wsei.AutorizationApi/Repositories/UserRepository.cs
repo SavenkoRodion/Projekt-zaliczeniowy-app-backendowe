@@ -26,9 +26,9 @@ namespace Wsei.AutorizationApi.Repositories
         {
             User? existingUser = await _authorizationDbContext.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
             if (existingUser != null)
-           {
-               throw new Exception("User with the same username already exists.");
-           }
+            {
+                throw new Exception("User with the same username already exists.");
+            }
 
             await _authorizationDbContext.Users.AddAsync(user);
             await _authorizationDbContext.SaveChangesAsync();
@@ -38,7 +38,7 @@ namespace Wsei.AutorizationApi.Repositories
         {
             IEnumerable<User> usersFromDb = await _authorizationDbContext.Users.ToListAsync();
             if (usersFromDb.Select(user => user.Username).Contains(requestedUser.Username))
-                
+
             {
                 foreach (var user in usersFromDb)
                 {
@@ -51,7 +51,6 @@ namespace Wsei.AutorizationApi.Repositories
                         throw new Exception("Wrong password.");
                     }
                 }
-                
             }
             else
             {
@@ -59,6 +58,54 @@ namespace Wsei.AutorizationApi.Repositories
             }
             throw new Exception("Something went wrong");
         }
+
+        public async Task<User?> GetUserByName(string userName)
+        {
+            return await _authorizationDbContext.Users.Where(dbUser => dbUser.Username == userName).FirstOrDefaultAsync();
+        }
+
+        public async Task<string?> GetUserRoleAsync(string userName)
+        {
+            return await _authorizationDbContext.Users
+                .Where(dbUser => dbUser.Username == userName)
+                .Select(dbUser => dbUser.Role.Name)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> GrantRoleToUser(string userName, string role)
+        {
+            await _authorizationDbContext.Users
+                .Where(dbUser => dbUser.Username == userName)
+                .ExecuteDeleteAsync();
+
+            User user = await _authorizationDbContext.Users
+                .Where(dbUser => dbUser.Username == userName).FirstAsync();
+
+            user.Role = await _authorizationDbContext.Roles.Where(dbRole => dbRole.Name == role).FirstAsync();
+
+            _authorizationDbContext.Users.Entry(user).State = EntityState.Modified;
+
+            await _authorizationDbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> RevokeUserRoles(string userName)
+        {
+            await _authorizationDbContext.Users
+                .Where(dbUser => dbUser.Username == userName)
+                .ExecuteDeleteAsync();
+
+            User user = await _authorizationDbContext.Users
+                .Where(dbUser => dbUser.Username == userName).FirstAsync();
+
+            user.Role = null;
+
+            _authorizationDbContext.Users.Entry(user).State = EntityState.Modified;
+
+            await _authorizationDbContext.SaveChangesAsync();
+            return true;
+        }
+
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512(passwordSalt))

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wsei.AutorizationApi.Controllers
+﻿namespace Wsei.AutorizationApi.Models
 {
     public class Role
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public IEnumerable<User> Users { get; set; }
     }
 }

@@ -39,15 +39,28 @@ namespace Wsei.AutorizationApi.Controllers
         public async Task<ActionResult<string>> Login(UserDto request)
         {
             User loggedUser = await _userRepository.GetLoggedUserAsync(request);
-                  string token = CreateToken(loggedUser);
-                  return Ok(token);
+            string token = await CreateTokenAsync(loggedUser);
+            return Ok(token);
         }
-        private string CreateToken(User user)
+
+        [HttpGet("grant-role-to-user")]
+        public async Task<ActionResult<string>> GrantRoleToUserAsync(string userName, string role)
+        {
+            return await _userRepository.GrantRoleToUser(userName, role) is true ? Ok(true) : BadRequest(false);
+        }
+
+        [HttpDelete("revoke-admin-role-to-user")]
+        public async Task<ActionResult<string>> RevokeUserRolesAsync(string userName)
+        {
+            return await _userRepository.RevokeUserRoles(userName) is true ? Ok(true) : BadRequest(false);
+        }
+
+        private async Task<string> CreateTokenAsync(User user)
         {
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.Role, await _userRepository.GetUserRoleAsync(user.Username))
             };
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
                 _configuration.GetSection("AppSettings:Token").Value));

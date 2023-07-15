@@ -11,8 +11,8 @@ using Wsei.AutorizationApi.Controllers;
 namespace Wsei.AutorizationApi.Migrations
 {
     [DbContext(typeof(AuthorizationDbContext))]
-    [Migration("20230715111506_elo")]
-    partial class elo
+    [Migration("20230715164930_Main")]
+    partial class Main
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Wsei.AutorizationApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Wsei.AutorizationApi.Controllers.Role", b =>
+            modelBuilder.Entity("Wsei.AutorizationApi.Models.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,13 +57,34 @@ namespace Wsei.AutorizationApi.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Wsei.AutorizationApi.Models.User", b =>
+                {
+                    b.HasOne("Wsei.AutorizationApi.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Wsei.AutorizationApi.Models.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

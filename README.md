@@ -52,17 +52,32 @@ Wyświetli się okienko gdzie można wybrać parę projektów startowych. Tam po
 
 ## Obsługa systemu
 
-1. Wsei.AutorizationApi\
+1. Wsei.AutorizationApi
+
 System obsługuje dwie role: User, Admin. Są endpoity z których może korzystać użytkownik niezalogowany
 
 Po przejściu procesu instalacji i konfiguracji systemu opisanego wyżej w bazie będzie stworzony pierwszy administator (username: admin, hasło: admin)
 
-Rejestracja: przy rejestracji jest tworzony użytkownik który będzie miał Role: "User"
+#### Rejestracja
+Przy rejestracji jest tworzony użytkownik który będzie miał Role: "User"\
+Użytkownikowi role "Admin" może nadać tylko inny użytkownik z rolą "Admin"\
+Admin za pomocą endpointa też może zabrać role Admin u innego użytkownika
 
-Użytkownikowi role "Admin" może nadać tylko inny użytkownik z rolą "Admin"
-   
+#### Logowanie
+Po poprawnym zalogowaniu endpoint zwraca jwt token.\ 
+Po naciśnięciu przycisku Authorize w Swaggerze jego trzeba wpisać w Input w takim formacie: bearer {token}
+Wtedy użytkownik będzie zalogowany w swaggerze i mógł korzystać z endpointów
 
-5. Realizacja wymagań
+#### W taki sam sposób działa logowanie w Wsei.Matches!
+
+2. Wsei.TeamRatings
+Mikroserwis bez logowania, ma w sobie informacje o wskaźniku oceny zespołu
+
+3. Wsei.Matches
+Główny mikroserwis. Większośc endpointów potrzebują być zalogowanym.\
+Żeby stowrzyć mecz w bazie, trzeba mieć stworzone w bazie zespoły, ligę, stadium. Żeby stworzyć ligę trzeba mieć stworzone państwo
+
+## Realizacja wymagań
 
 Zastosowanie wzorca Onion Architecture w projekcie. 
 Kod powinien być hostowany na platformie GitHub + udokumentowany. 

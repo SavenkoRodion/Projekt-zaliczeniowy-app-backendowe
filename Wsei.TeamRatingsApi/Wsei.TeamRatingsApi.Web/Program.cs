@@ -1,4 +1,3 @@
-using Microsoft.OpenApi.Models;
 using Wsei.TeamRatingsApi.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,31 +11,6 @@ builder.Services.AddSwaggerGen();
 
 StartupSetup.AddDbContexts(builder.Services, "name=ConnectionStrings:TeamRatingsDb");
 StartupSetup.AddRepositoriesToInterfaces(builder.Services);
-
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-    {
-        Description = "Standard Authorization header using the Bearer scheme(\"bearer {token}\")",
-        In = ParameterLocation.Header,
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
-    });
-    options.OperationFilter<SecurityRequirementsOperationFilter>();
-});
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
-    });
 
 var app = builder.Build();
 

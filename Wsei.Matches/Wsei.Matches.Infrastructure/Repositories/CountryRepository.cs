@@ -33,9 +33,14 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 .Where(country => country.Id == id)
                 .FirstOrDefaultAsync();
 
-            CountryDto countryDto = _mapper.Map<CountryDto>(countryFromDb);
-
-            return countryDto;
+            if (countryFromDb is not null)
+            {
+                return _mapper.Map<CountryDto>(countryFromDb);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task AddAsync(IEnumerable<CountryDto> countriesDto)

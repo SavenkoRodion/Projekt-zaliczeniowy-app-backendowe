@@ -37,12 +37,19 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 .Where(match => match.Id == id)
                 .FirstOrDefaultAsync();
 
-            float? homeTeamWinRate = await _matchService.GetHomeTeamWinrateChanseAsync(match.HomeTeam.Name, match.GuestTeam.Name);
+            if (match is not null)
+            {
+                float? homeTeamWinRate = await _matchService.GetHomeTeamWinrateChanseAsync(match.HomeTeam.Name, match.GuestTeam.Name);
 
-            MatchDtoResponse matchDto = _mapper.Map<MatchDtoResponse>(match);
-            matchDto.HomeTeamWinRate = homeTeamWinRate;
+                MatchDtoResponse matchDto = _mapper.Map<MatchDtoResponse>(match);
+                matchDto.HomeTeamWinRate = homeTeamWinRate;
 
-            return matchDto;
+                return matchDto;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task AddAsync(IEnumerable<MatchDtoRequest> matches)

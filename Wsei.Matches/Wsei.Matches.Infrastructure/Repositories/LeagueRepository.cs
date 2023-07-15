@@ -30,14 +30,19 @@ namespace Wsei.Matches.Infrastructure.Repositories
 
         public async Task<LeagueDtoResponse?> GetByIdAsync(int id)
         {
-            League? league leaguesFromDb = await _matchesDbContext.Leagues
+            League? league = await _matchesDbContext.Leagues
                 .Include(league => league.Country)
                 .Where(league => league.Id == id)
                 .FirstOrDefaultAsync();
 
-            LeagueDtoResponse leagueDto = _mapper.Map<LeagueDtoResponse>(league);
-
-            return leagueDto;
+            if (league is not null)
+            {
+                return _mapper.Map<LeagueDtoResponse>(league);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task AddAsync(IEnumerable<LeagueDtoRequest> leagues)

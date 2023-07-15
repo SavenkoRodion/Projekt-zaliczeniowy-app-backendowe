@@ -39,9 +39,14 @@ namespace Wsei.Matches.Infrastructure.Repositories
                 .Where(team => team.Id == id)
                 .FirstOrDefaultAsync();
 
-            TeamDtoResponse teamDto = _mapper.Map<TeamDtoResponse>(team);
-
-            return teamDto;
+            if (team is not null)
+            {
+                return _mapper.Map<TeamDtoResponse>(team);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task AddAsync(IEnumerable<TeamDtoRequest> teams)

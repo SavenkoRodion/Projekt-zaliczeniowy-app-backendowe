@@ -27,9 +27,14 @@ namespace Wsei.TeamRatingsApi.Infrastructure.Repositories
         {
             TeamRating? ratedTeamFromDb = await _teamRatingsDbContext.RatedTeams.Where(team => team.Id == id).FirstOrDefaultAsync();
 
-            TeamRatingDto ratedTeamDto = CustomMapper.Map(ratedTeamFromDb);
-
-            return ratedTeamDto;
+            if (ratedTeamFromDb is not null)
+            {
+                return CustomMapper.Map(ratedTeamFromDb);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<TeamRatingDto?> GetByNameAsync(string teamName)

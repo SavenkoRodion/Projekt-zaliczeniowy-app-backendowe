@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections;
-using System.Security.Cryptography;
-using System.Text;
-using Wsei.AutorizationApi.Controllers;
+using Wsei.AutorizationApi.Contexts;
 using Wsei.AutorizationApi.Models;
 using User = Wsei.AutorizationApi.Models.User;
 
@@ -42,7 +39,7 @@ namespace Wsei.AutorizationApi.Repositories
             {
                 foreach (var user in usersFromDb)
                 {
-                    if (VerifyPasswordHash(requestedUser.Password, user.PasswordHash, user.PasswordSalt))
+                    if (PasswordUtil.VerifyPasswordHash(requestedUser.Password, user.PasswordHash, user.PasswordSalt))
                     {
                         return user;
                     }
@@ -64,15 +61,15 @@ namespace Wsei.AutorizationApi.Repositories
             return await _authorizationDbContext.Users.Where(dbUser => dbUser.Username == userName).FirstOrDefaultAsync();
         }
 
-        public async Task<string?> GetUserRoleAsync(string userName)
+        public async Task<bool> IsAdmin(string userName)
         {
             return await _authorizationDbContext.Users
                 .Where(dbUser => dbUser.Username == userName)
-                .Select(dbUser => dbUser.Role.Name)
-                .FirstOrDefaultAsync();
+                .Select(dbUser => dbUser.IsAdmin)
+                .FirstAsync();
         }
 
-        public async Task<bool> GrantRoleToUser(string userName, string role)
+        public async Task<bool> GrantAdminRoleToUser(string userName)
         {
             await _authorizationDbContext.Users
                 .Where(dbUser => dbUser.Username == userName)
@@ -81,7 +78,7 @@ namespace Wsei.AutorizationApi.Repositories
             User user = await _authorizationDbContext.Users
                 .Where(dbUser => dbUser.Username == userName).FirstAsync();
 
-            user.Role = await _authorizationDbContext.Roles.Where(dbRole => dbRole.Name == role).FirstAsync();
+            user.IsAdmin = true;
 
             _authorizationDbContext.Users.Entry(user).State = EntityState.Modified;
 
@@ -98,22 +95,12 @@ namespace Wsei.AutorizationApi.Repositories
             User user = await _authorizationDbContext.Users
                 .Where(dbUser => dbUser.Username == userName).FirstAsync();
 
-            user.Role = null;
+            user.IsAdmin = false;
 
             _authorizationDbContext.Users.Entry(user).State = EntityState.Modified;
 
             await _authorizationDbContext.SaveChangesAsync();
             return true;
         }
-
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return StructuralComparisons.StructuralEqualityComparer.Equals(computedHash, passwordHash);
-            }
-        }
-
     }
 }

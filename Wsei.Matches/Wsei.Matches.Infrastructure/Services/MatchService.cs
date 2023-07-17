@@ -36,7 +36,7 @@ public class MatchService : IMatchService
         }
         else if (homeTeamRating.Rating > guestTeamRating.Rating)
         {
-            return (float)(1 - ((float)homeTeamRating.Rating / (float)guestTeamRating.Rating) * 0.5);
+            return (float)(1 - ((float)guestTeamRating.Rating / (float)homeTeamRating.Rating) * 0.5);
         }
         else
         {

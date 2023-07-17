@@ -7,9 +7,9 @@ namespace Wsei.Matches.Web.Controllers;
 
 [ApiController]
 [Route("/league")]
-public class LeagueController : BaseCrudController<MatchDtoRequest, MatchDtoResponse>
+public class LeagueController : BaseCrudController<LeagueDtoRequest, LeagueDtoResponse>
 {
-    public LeagueController(IRepository<MatchDtoRequest, MatchDtoResponse> repository) : base(repository) { }
+    public LeagueController(IRepository<LeagueDtoRequest, LeagueDtoResponse> repository) : base(repository) { }
 }
 
 
